@@ -1,6 +1,6 @@
 /*
 NAME: 212e1dce-965f-41ac-bb72-1f800360267c_windows.go
-QUESTION: Are malicous macro enabled documents quarentined?
+QUESTION: Are malicous macro enabled documents quarantined?
 CREATED: 2022-12-28 10:49:57.012000
 */
 package main
