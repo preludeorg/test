@@ -2,7 +2,6 @@ package Basic
 
 import (
 	"io/fs"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"time"
@@ -25,7 +24,7 @@ func Find(ext string) []string {
 
 func Write(path string, contents string) {
 	b := []byte(contents)
-	err := ioutil.WriteFile(path, b, 0644)
+	err := os.WriteFile(path, b, 0644)
 	if err != nil {
 		println("[-] Failed to write " + path)
 	}
