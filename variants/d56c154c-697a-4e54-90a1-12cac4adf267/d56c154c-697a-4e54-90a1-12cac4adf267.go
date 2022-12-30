@@ -12,7 +12,7 @@ import (
 
 func test() {
 	println("[*] Running test")
-	evidence := basic.Find(".lockbit")
+	evidence := Basic.Find(".lockbit")
 	if evidence != nil {
 		println("[!] Discovered evidence of LockBit ransomware")
 		os.Exit(101)
