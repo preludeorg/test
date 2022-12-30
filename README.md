@@ -12,3 +12,7 @@ A VST should:
 - Be lightweight, both in footprint and resources used during execution
 
 Variants from this repository are automatically loaded into [Build](https://build.preludesecurity.com).
+
+### Endpoint
+
+The Endpoint module is a shared set of functions for security tests to use. 
