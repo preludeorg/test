@@ -28,12 +28,15 @@ func Write(path string, contents string) {
 	if err != nil {
 		println("[-] Failed to write " + path)
 	}
+	println("File written: " + path)
 }
 
 func Exists(path string) bool {
 	if _, err := os.Stat(path); err == nil {
+		println("File exists: " + path)
 		return true
 	} else {
+		println("File does not exist: " + path)
 		return false
 	}
 }
