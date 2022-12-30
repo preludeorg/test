@@ -2,7 +2,7 @@ package Basic
 
 import (
 	"io/fs"
-	"ioutil"
+	"io/util"
 	"os"
 	"path/filepath"
 	"time"
