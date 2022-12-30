@@ -31,7 +31,7 @@ func Write(path string, contents string) {
 }
 
 func Exists(path string) bool {
-	if _, err := os.Stat("sample.txt"); err == nil {
+	if _, err := os.Stat(path); err == nil {
 		return true
 	} else {
 		return false
