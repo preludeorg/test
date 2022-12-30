@@ -1,6 +1,6 @@
 /*
 NAME: b74ad239-2ddd-4b1e-b608-8397a43c7c54.go
-QUESTION: Does the endpoint respond to a benign file?
+QUESTION: Does the endpoint quarantine a benign file?
 CREATED: 2022-12-30
 */
 package main
@@ -16,7 +16,7 @@ var special string
 
 func test() {
 	println("[*] Running test")
-	if Endpoint.Respond("nonsense.txt", special) {
+	if Endpoint.Quarantine("nonsense.txt", special) {
 		os.Exit(105)
 	}
 	os.Exit(100)

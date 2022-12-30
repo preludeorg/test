@@ -41,7 +41,7 @@ func Exists(path string) bool {
 	}
 }
 
-func Respond(path string, contents string) bool {
+func Quarantine(path string, contents string) bool {
 	Write(path, contents)
 	time.Sleep(2 * time.Second)
 	if Exists(path) {
