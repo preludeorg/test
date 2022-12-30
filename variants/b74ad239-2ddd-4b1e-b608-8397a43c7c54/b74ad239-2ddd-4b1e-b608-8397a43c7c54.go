@@ -16,7 +16,7 @@ var special string
 
 func test() {
 	println("[*] Running test")
-	if Endpoint.Quarantine("nonsense.txt", special) {
+	if Endpoint.Quarantined("nonsense.txt", special) {
 		os.Exit(105)
 	}
 	os.Exit(100)
