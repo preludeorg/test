@@ -1,4 +1,4 @@
-package Basic
+package Endpoint
 
 import (
 	"io/fs"
