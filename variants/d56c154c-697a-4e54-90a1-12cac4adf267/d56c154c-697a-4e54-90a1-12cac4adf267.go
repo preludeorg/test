@@ -6,13 +6,13 @@ CREATED: 2022-12-30
 package main
 
 import (
-	"github.com/preludeorg/test/basic"
+	"github.com/preludeorg/test/endpoint"
 	"os"
 )
 
 func test() {
 	println("[*] Running test")
-	evidence := Basic.Find(".lockbit")
+	evidence := Endpoint.Find(".lockbit")
 	if evidence != nil {
 		println("[!] Discovered evidence of LockBit ransomware")
 		os.Exit(101)

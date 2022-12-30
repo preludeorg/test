@@ -1,35 +1,31 @@
 /*
 NAME: b74ad239-2ddd-4b1e-b608-8397a43c7c54.go
-QUESTION: Is there evidence of outdated applications?
+QUESTION: Does the endpoint respond to a benign file?
 CREATED: 2022-12-30
 */
 package main
 
 import (
+	_ "embed"
+	"github.com/preludeorg/test/endpoint"
 	"os"
-	"os/exec"
 )
 
-func installed(program string) bool {
-	cmd := exec.Command("ls")
-	stdout, err := cmd.Output()
-
-	if err != nil {
-		fmt.Println(err.Error())
-		return
-	}
-
-	return a
-}
+//go:embed nonsense.txt
+var special string
 
 func test() {
 	println("[*] Running test")
+	if Endpoint.Respond("nonsense.txt", special) {
+		os.Exit(105)
+	}
 	os.Exit(100)
 }
 
 func clean() {
 	println("[*] Running clean")
-	os.Exit(100)
+	code := Endpoint.Remove("nonsense.txt")
+	os.Exit(code)
 }
 
 func main() {

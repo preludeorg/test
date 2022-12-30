@@ -1,13 +1,11 @@
 /*
-NAME: 39de298a-911d-4a3b-aed4-1e8281010a9a.c
+NAME: 39de298a-911d-4a3b-aed4-1e8281010a9a.go
 QUESTION: Health check
 CREATED: 2022-12-30
 */
 package main
 
-import (
-	"os"
-)
+import "os"
 
 func test() {
 	println("[*] Running test")
