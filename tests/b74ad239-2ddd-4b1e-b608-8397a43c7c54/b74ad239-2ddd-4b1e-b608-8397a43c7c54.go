@@ -1,6 +1,6 @@
 /*
 NAME: b74ad239-2ddd-4b1e-b608-8397a43c7c54.go
-RULE: Quarantine a malicious file
+RULE: Malicious files are quarantined
 CREATED: 2023-01-03
 */
 package main

@@ -1,6 +1,6 @@
 /*
 NAME: db201110-d875-4133-9709-2732a47f252f.go
-RULE: Protect against ransomware
+RULE: Block ransomware attacks
 CREATED: 2023-01-03
 */
 package main
@@ -61,7 +61,7 @@ func test() {
 		println(err)
 		os.Exit(1)
 	}
-	println("[+] Generated an encryption key")
+	println("[+] Generated a new encryption key")
 
 	arr := [3]string{"one.txt", "two.xlsx", "three.pdf"}
 	for _, name := range arr {
