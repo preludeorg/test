@@ -23,8 +23,8 @@ func test() {
 }
 
 func clean() {
-	code := Endpoint.Remove("nonsense.xlsx")
-	os.Exit(code)
+	status := Endpoint.Remove("nonsense.xlsx")
+	os.Exit(status)
 }
 
 func main() {

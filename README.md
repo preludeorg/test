@@ -17,7 +17,8 @@ Variants from this repository are automatically loaded into [Build](https://buil
 
 The Endpoint module is a shared set of functions for security tests to use. 
 
-Install this module with:
+### Installation
+
 ```bash
 go get -u github.com/preludeorg/test/endpoint
 ```

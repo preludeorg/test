@@ -72,10 +72,10 @@ func test() {
 		if err != nil {
 			println(err)
 		}
+
 		Endpoint.Write(filepath.Join(usr.HomeDir, name), encryptBytes)
 	}
 
-	println("[*] Completed test")
 	os.Exit(100)
 }
 
