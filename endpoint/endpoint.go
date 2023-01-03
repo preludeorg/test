@@ -36,7 +36,7 @@ func Write(path string, contents []byte) {
 	if err != nil {
 		println("[-] Failed to write " + path)
 	}
-	println("[+] File written: " + path)
+	println("[+] File created: " + path)
 }
 
 func Exists(path string) bool {

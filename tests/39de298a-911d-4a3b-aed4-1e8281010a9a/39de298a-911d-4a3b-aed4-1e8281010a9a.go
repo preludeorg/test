@@ -8,12 +8,10 @@ package main
 import "os"
 
 func test() {
-	println("[*] Running test")
 	os.Exit(100)
 }
 
 func clean() {
-	println("[*] Running clean")
 	os.Exit(100)
 }
 

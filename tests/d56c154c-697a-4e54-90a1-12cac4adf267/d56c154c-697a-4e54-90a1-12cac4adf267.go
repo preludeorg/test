@@ -1,7 +1,7 @@
 /*
-NAME: d56c154c-697a-4e54-90a1-12cac4adf267.c
-RULE: Is there evidence of LockBit ransomware?
-CREATED: 2022-12-30
+NAME: d56c154c-697a-4e54-90a1-12cac4adf267.go
+OBSERVATION: LockBit ransomware infection
+CREATED: 2023-01-03
 */
 package main
 
@@ -11,7 +11,6 @@ import (
 )
 
 func test() {
-	println("[*] Running test")
 	evidence := Endpoint.Find(".lockbit")
 	if evidence != nil {
 		println("[!] Discovered evidence of LockBit ransomware")
@@ -21,7 +20,6 @@ func test() {
 }
 
 func clean() {
-	println("[*] Running clean")
 	os.Exit(100)
 }
 
