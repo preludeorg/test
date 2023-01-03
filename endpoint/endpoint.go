@@ -56,5 +56,6 @@ func Remove(path string) int {
 		println("[-] Failed to remove " + path)
 		return 103
 	}
+	println("Removed file: " + path)
 	return 100
 }
