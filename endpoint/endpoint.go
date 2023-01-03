@@ -22,20 +22,29 @@ func Find(ext string) []string {
 	return a
 }
 
+func Read(path string) []byte {
+	bit, err := os.ReadFile(path)
+	if err != nil {
+		println(err)
+	}
+	println("[+] File read: " + path)
+	return bit
+}
+
 func Write(path string, contents []byte) {
 	err := os.WriteFile(path, contents, 0644)
 	if err != nil {
 		println("[-] Failed to write " + path)
 	}
-	println("File written: " + path)
+	println("[+] File written: " + path)
 }
 
 func Exists(path string) bool {
 	if _, err := os.Stat(path); err == nil {
-		println("File exists: " + path)
+		println("[+] File exists: " + path)
 		return true
 	} else {
-		println("File does not exist: " + path)
+		println("[!] File does not exist: " + path)
 		return false
 	}
 }
@@ -56,6 +65,6 @@ func Remove(path string) int {
 		println("[-] Failed to remove " + path)
 		return 103
 	}
-	println("Removed file: " + path)
+	println("[+] Removed file: " + path)
 	return 100
 }
