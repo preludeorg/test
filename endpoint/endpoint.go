@@ -22,9 +22,8 @@ func Find(ext string) []string {
 	return a
 }
 
-func Write(path string, contents string) {
-	b := []byte(contents)
-	err := os.WriteFile(path, b, 0644)
+func Write(path string, contents []byte) {
+	err := os.WriteFile(path, contents, 0644)
 	if err != nil {
 		println("[-] Failed to write " + path)
 	}
