@@ -40,7 +40,7 @@ func Exists(path string) bool {
 	}
 }
 
-func Quarantined(path string, contents string) bool {
+func Quarantined(path string, contents []byte) bool {
 	Write(path, contents)
 	time.Sleep(2 * time.Second)
 	if Exists(path) {
