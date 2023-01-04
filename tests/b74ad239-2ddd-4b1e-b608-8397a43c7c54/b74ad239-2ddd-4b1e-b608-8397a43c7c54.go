@@ -7,11 +7,10 @@ package main
 
 import (
 	_ "embed"
-	"github.com/preludeorg/test/endpoint"
 	"os"
 )
 
-//go:embed malicious.xlsx
+//go:embed malicious.xlsm
 var malicious []byte
 
 func test() {
