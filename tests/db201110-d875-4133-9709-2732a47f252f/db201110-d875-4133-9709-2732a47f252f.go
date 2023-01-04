@@ -1,6 +1,6 @@
 /*
 NAME: db201110-d875-4133-9709-2732a47f252f.go
-RULE: Block ransomware attacks
+RULE: Protection against ransomware attacks
 CREATED: 2023-01-03
 */
 package main
