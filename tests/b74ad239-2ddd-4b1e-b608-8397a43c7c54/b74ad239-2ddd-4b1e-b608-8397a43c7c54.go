@@ -11,19 +11,19 @@ import (
 	"os"
 )
 
-//go:embed malicious.xlsx
+//go:embed malicious.xlsm
 var malicious []byte
 
 func test() {
 	println("[+] Dropping file for quarantine test")
-	if Endpoint.Quarantined("nonsense.xlsx", malicious) {
+	if Endpoint.Quarantined("malicious.xlsm", malicious) {
 		os.Exit(105)
 	}
 	os.Exit(100)
 }
 
 func clean() {
-	status := Endpoint.Remove("nonsense.xlsx")
+	status := Endpoint.Remove("malicious.xlsm")
 	os.Exit(status)
 }
 
