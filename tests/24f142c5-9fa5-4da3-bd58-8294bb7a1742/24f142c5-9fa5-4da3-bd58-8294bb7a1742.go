@@ -1,12 +1,11 @@
 /*
-NAME: 24f142c5-9fa5-4da3-bd58-8294bb7a1742.go
-RULE: A macro-enabled document was executed
+NAME: macro.go
+RULE: Has a macro-enabled document been executed
 CREATED: 2023-01-04
 */
 package main
 
 import (
-	"fmt"
 	"os"
 
 	"golang.org/x/sys/windows/registry"
@@ -17,8 +16,8 @@ func test() {
 	applications := [3]string{"Word", "Excel", "PowerPoint"}
 
 	for _, app := range applications {
-		fmt.Printf("[*] Checking %s macro-enabled documents...\n", app)
-		path := fmt.Sprintf("Software\\Microsoft\\Office\\16.0\\%s\\Security\\Trusted Documents\\TrustRecords", app)
+		println("[*] Checking " + app + " macro-enabled documents...")
+		path := "Software\\Microsoft\\Office\\16.0\\" + app + "\\Security\\Trusted Documents\\TrustRecords"
 		k, err := registry.OpenKey(registry.CURRENT_USER, path, registry.QUERY_VALUE)
 		if err != nil {
 			println(err.Error())
@@ -36,7 +35,7 @@ func test() {
 				println(err.Error())
 			}
 			if s[len(s)-4] == 0xff && s[len(s)-3] == 0xff && s[len(s)-2] == 0xff && s[len(s)-1] == 0x7f {
-				fmt.Printf("Found executed macro-enabled document: %s\n", v[i])
+				println("Found executed macro-enabled document: " + v[i])
 				exit = 100
 			}
 		}
