@@ -27,7 +27,6 @@ func Read(path string) []byte {
 	if err != nil {
 		println(err)
 	}
-	println("[+] File read: " + path)
 	return bit
 }
 
@@ -36,15 +35,12 @@ func Write(path string, contents []byte) {
 	if err != nil {
 		println("[-] Failed to write " + path)
 	}
-	println("[+] File created: " + path)
 }
 
 func Exists(path string) bool {
 	if _, err := os.Stat(path); err == nil {
-		println("[+] File exists: " + path)
 		return true
 	} else {
-		println("[!] File does not exist: " + path)
 		return false
 	}
 }
@@ -62,9 +58,7 @@ func Quarantined(path string, contents []byte) bool {
 func Remove(path string) int {
 	e := os.Remove(path)
 	if e != nil {
-		println("[-] Failed to remove " + path)
 		return 103
 	}
-	println("[+] Removed file: " + path)
 	return 100
 }
