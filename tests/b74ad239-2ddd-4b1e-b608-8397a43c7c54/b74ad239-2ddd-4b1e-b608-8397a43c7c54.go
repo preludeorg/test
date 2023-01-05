@@ -17,9 +17,9 @@ var malicious []byte
 func test() {
 	println("[+] Dropping file for quarantine test")
 	if Endpoint.Quarantined("malicious.xlsm", malicious) {
-		os.Exit(105)
+		os.Exit(100)
 	}
-	os.Exit(100)
+	os.Exit(101)
 }
 
 func clean() {
