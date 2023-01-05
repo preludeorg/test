@@ -1,7 +1,7 @@
 /*
 NAME: c521b330-70eb-4c4d-b748-a8869a7bac4c.go
-RULE: Malicious files are quarantined
-CREATED: 2023-01-03
+QUESTION: Golang detection payload
+CREATED: 2023-01-05 08:33:41.322000
 */
 package main
 
