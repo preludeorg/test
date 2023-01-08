@@ -48,7 +48,4 @@ If developing tests locally, install the Go module:
 go get -u github.com/preludeorg/test/endpoint
 ```
 
-Then use any of the included functions in your own tests. The following example uses the ``Remove`` function to delete a file from disk:
-```
-status := Endpoint.Remove("malicious.xlsm")
-```
+Then use any of the included functions in your own tests. Note a few use cases in the example above.
