@@ -13,13 +13,16 @@ A VST should:
 - Compile into a standard binary
 - Be lightweight, both in footprint and resources used during execution 
 
-### Endpoint
+## Write your own tests
 
-The Endpoint module is a shared set of functions for security tests to use. 
+The Endpoint module is a shared set of functions for security tests to use. Shared functions revolve around common needs, such as writing or reading files or downloading files from the internet.
 
 If developing tests locally, install the Go module:
 ```bash
 go get -u github.com/preludeorg/test/endpoint
 ```
 
-Then use any of the included functions in your own tests.
+Then use any of the included functions in your own tests. The following example uses the ``Remove`` function to delete a file from disk:
+```
+status := Endpoint.Remove("malicious.xlsm")
+```
