@@ -15,7 +15,7 @@ A VST should:
 
 ## An example
 
-The [Malicious files are quarantined](https://github.com/preludeorg/test/blob/master/tests/b74ad239-2ddd-4b1e-b608-8397a43c7c54/b74ad239-2ddd-4b1e-b608-8397a43c7c54.go) test verifies if your endpoint defenses is reacting appropriately to a known malicious file. 
+The [Malicious files are quarantined](https://github.com/preludeorg/test/blob/master/tests/b74ad239-2ddd-4b1e-b608-8397a43c7c54/b74ad239-2ddd-4b1e-b608-8397a43c7c54.go) test verifies if your endpoint defense is responding to a known malicious file. 
 
 It does this by first embedding a malicious .xlsm file into the test:
 ```
