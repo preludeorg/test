@@ -7,9 +7,8 @@ A [VST](https://docs.prelude.org/docs/tests) is a production ready TTP. Tests fr
 Tests that are safe to execute, run reliably every time, and produce a standardized output are considered production ready.
 
 A VST should:
-- Answer a question
+- Answer a question, exiting with a standard code from the Prelude [lookup table](https://docs.prelude.org/docs/tests#results)
 - Have test and clean functions, the latter reversing any effects of the former
-- Exit with a standard code from the Prelude [lookup table](https://docs.prelude.org/docs/tests#results)
 - Compile into a standard binary
 - Be lightweight, both in footprint and resources used during execution 
 
