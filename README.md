@@ -9,8 +9,7 @@ Tests that are safe to execute, run reliably every time, and produce a standardi
 A VST should:
 - Answer a question, exiting with a standard code from the Prelude [lookup table](https://docs.prelude.org/docs/tests#results)
 - Have test and clean functions, the latter reversing any effects of the former
-- Compile into a standard binary
-- Be lightweight, both in footprint and resources used during execution 
+- Compile into a standard binary specific to an OS/architecture
 
 ## An example
 
