@@ -125,7 +125,7 @@ func Serve(address string, protocol string) {
 
 func Run(command string) string {
 	if runtime.GOOS == "windows" {
-		cmd := exec.Command("cmd.exe", command)
+		cmd := exec.Command("cmd.exe", "/C", command)
 		stdout, err := cmd.Output()
 		if err != nil {
 			println(err.Error())
