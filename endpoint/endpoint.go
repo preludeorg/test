@@ -97,6 +97,7 @@ func DialTCP(address string, message string) int {
 }
 
 func Serve(address string, protocol string) {
+	println("Serving: ", address)
 	listen, err1 := net.Listen(protocol, address)
 	if err1 != nil {
 		println("Listener (serve) failed:", err1.Error())
