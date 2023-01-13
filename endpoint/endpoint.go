@@ -64,33 +64,45 @@ func Remove(path string) int {
 	return 100
 }
 
-func DialTCP(address string, message string) string {
+func DialTCP(address string, message string) int {
 	tcpAddr, err := net.ResolveTCPAddr("tcp", address)
 	if err != nil {
 		println("Failed to resolve:", err.Error())
-		os.Exit(1)
+		return 1
 	}
 
 	conn, err := net.DialTCP("tcp", nil, tcpAddr)
 	if err != nil {
 		println("Connection failure:", err.Error())
-		os.Exit(1)
+		return 1
 	}
 
 	_, err = conn.Write([]byte(message))
 	if err != nil {
 		println("Write to server failed:", err.Error())
-		os.Exit(1)
+		return 1
 	}
 
 	reply := make([]byte, 1024)
 
 	_, err = conn.Read(reply)
 	if err != nil {
-		println("Write to server failed:", err.Error())
-		os.Exit(1)
+		println("Read response failed:", err.Error())
+		return 1
 	}
 
 	conn.Close()
-	return string(reply)
+	println("Server reply: ", string(reply))
+	return 0
+}
+
+func Serve(address string, protocol string) {
+	listen, err1 := net.Listen(protocol, address)
+	if err1 != nil {
+		println("Listener (serve) failed:", err1.Error())
+		os.Exit(1)
+	}
+	defer listen.Close()
+
+	listen.Accept()
 }
