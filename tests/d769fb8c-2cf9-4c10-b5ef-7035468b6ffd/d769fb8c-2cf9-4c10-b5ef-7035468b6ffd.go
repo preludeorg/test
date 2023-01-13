@@ -11,8 +11,10 @@ import (
 )
 
 func test() {
-	resp := Endpoint.DialTCP("77.88.55.80:443", "hello world")
-	println("Server responded:", resp)
+	code := Endpoint.DialTCP("77.88.55.80:443", "hello world")
+	if code == 0 {
+	    os.Exit(101)
+	}
 	os.Exit(100)
 }
 
