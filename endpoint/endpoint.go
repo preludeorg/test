@@ -105,5 +105,18 @@ func Serve(address string, protocol string) {
 	}
 	defer listen.Close()
 
-	listen.Accept()
+	conn, err2 := listen.Accept()
+	if err2 != nil {
+		println("Listener (read) failed:", err2.Error())
+		os.Exit(1)
+	}
+
+	buffer := make([]byte, 1024)
+	_, err3 := conn.Read(buffer)
+	if err3 != nil {
+		println("Connection (read) failed:", err3.Error())
+	}
+
+	conn.Write([]byte("hello"))
+	conn.Close()
 }
