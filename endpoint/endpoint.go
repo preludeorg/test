@@ -2,6 +2,7 @@ package Endpoint
 
 import (
 	"io/fs"
+	"net"
 	"os"
 	"path/filepath"
 	"time"
@@ -61,4 +62,35 @@ func Remove(path string) int {
 		return 103
 	}
 	return 100
+}
+
+func DialTCP(address string, message string) string {
+	tcpAddr, err := net.ResolveTCPAddr("tcp", address)
+	if err != nil {
+		println("Failed to resolve:", err.Error())
+		os.Exit(1)
+	}
+
+	conn, err := net.DialTCP("tcp", nil, tcpAddr)
+	if err != nil {
+		println("Connection failure:", err.Error())
+		os.Exit(1)
+	}
+
+	_, err = conn.Write([]byte(message))
+	if err != nil {
+		println("Write to server failed:", err.Error())
+		os.Exit(1)
+	}
+
+	reply := make([]byte, 1024)
+
+	_, err = conn.Read(reply)
+	if err != nil {
+		println("Write to server failed:", err.Error())
+		os.Exit(1)
+	}
+
+	conn.Close()
+	return string(reply)
 }
