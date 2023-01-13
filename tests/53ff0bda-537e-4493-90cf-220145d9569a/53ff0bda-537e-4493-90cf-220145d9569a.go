@@ -6,18 +6,26 @@ CREATED: 2023-01-06 10:54:04.264000
 package main
 
 import (
-	"encoding/base64"
 	"fmt"
-	"os"
 	"github.com/preludeorg/test/endpoint"
+	"os"
+	"runtime"
 )
 
 func test() {
-	encoded := base64.StdEncoding.EncodeToString([]byte("whoami"))
-	task := fmt.Sprintf("base64 -D <<< %s | bash", encoded)
-	stdout := Endpoint.Run(task)
-	println(stdout)
-	os.Exit(100)
+	if runtime.GOOS == "windows" {
+		encoded := "dwBoAG8AYQBtAGkA"
+		task := fmt.Sprintf("powershell.exe -e %s", encoded)
+		stdout := Endpoint.Run(task)
+		println(stdout)
+		os.Exit(100)
+	} else {
+		encoded := "d2hvYW1p"
+		task := fmt.Sprintf("base64 -d <<< %s | bash", encoded)
+		stdout := Endpoint.Run(task)
+		println(stdout)
+		os.Exit(100)
+	}
 }
 
 func clean() {
