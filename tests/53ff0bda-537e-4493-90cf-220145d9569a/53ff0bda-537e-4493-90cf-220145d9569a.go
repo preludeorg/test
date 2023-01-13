@@ -9,7 +9,6 @@ import (
 	"encoding/base64"
 	"fmt"
 	"os"
-	"os/exec"
 	"github.com/preludeorg/test/endpoint"
 )
 
