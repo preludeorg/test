@@ -1,6 +1,8 @@
 package Endpoint
 
 import (
+	"bytes"
+	"io"
 	"io/fs"
 	"net"
 	"os"
@@ -64,33 +66,39 @@ func Remove(path string) int {
 	return 100
 }
 
-func DialTCP(address string, message string) string {
+func DialTCP(address string, message string) int {
 	tcpAddr, err := net.ResolveTCPAddr("tcp", address)
 	if err != nil {
 		println("Failed to resolve:", err.Error())
-		os.Exit(1)
+		return 1
 	}
 
 	conn, err := net.DialTCP("tcp", nil, tcpAddr)
 	if err != nil {
 		println("Connection failure:", err.Error())
-		os.Exit(1)
+		return 1
 	}
 
-	_, err = conn.Write([]byte(message))
-	if err != nil {
-		println("Write to server failed:", err.Error())
-		os.Exit(1)
+	sendData := bytes.NewReader([]byte(message))
+	sendBuffer := make([]byte, 1024)
+	for {
+
+		_, err = sendData.Read(sendBuffer)
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			println("Read response failed:", err.Error())
+			return 1
+		}
+
+		_, err = conn.Write(sendBuffer)
+		if err != nil {
+			println("Write to server failed:", err.Error())
+			return 1
+		}
 	}
-
-	reply := make([]byte, 1024)
-
-	_, err = conn.Read(reply)
-	if err != nil {
-		println("Write to server failed:", err.Error())
-		os.Exit(1)
-	}
-
 	conn.Close()
-	return string(reply)
+	println("Server reply: ", string(sendBuffer))
+	return 0
 }
