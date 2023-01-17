@@ -1,7 +1,7 @@
 /*
 FILENAME: 7072d02b-e026-47d2-a601-2c524177c0be.go
-RULE: generic playwright wrapper
-CREATED:
+RULE: Create GitHub test action
+CREATED: 2023-01-17
 */
 package main
 
@@ -26,7 +26,8 @@ func test() {
 }
 
 func clean() {
-	os.Exit(100)
+	exitCode := endpoint.Remove(os.TempDir() + "\\playwright.exe")
+	os.Exit(exitCode)
 }
 
 func main() {
