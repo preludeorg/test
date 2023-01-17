@@ -6,7 +6,9 @@ import (
 	"io/fs"
 	"net"
 	"os"
+	"os/exec"
 	"path/filepath"
+	"runtime"
 	"time"
 )
 
@@ -83,6 +85,12 @@ func DialTCP(address string, message string) int {
 	sendBuffer := make([]byte, 1024)
 	for {
 
+	_, err = conn.Write([]byte(message))
+	if err != nil {
+		println("Write to server failed:", err.Error())
+		return 1
+	}
+
 		_, err = sendData.Read(sendBuffer)
 		if err == io.EOF {
 			break
@@ -101,4 +109,60 @@ func DialTCP(address string, message string) int {
 	conn.Close()
 	println("Server reply: ", string(sendBuffer))
 	return 0
+
+	_, err = conn.Read(reply)
+	if err != nil {
+		println("Read response failed:", err.Error())
+		return 1
+	}
+
+	conn.Close()
+	println("Server reply: ", string(reply))
+	return 0
+}
+
+func Serve(address string, protocol string) {
+	println("Serving: ", address)
+	listen, err1 := net.Listen(protocol, address)
+	if err1 != nil {
+		println("Listener (serve) failed:", err1.Error())
+		os.Exit(1)
+	}
+	defer listen.Close()
+
+	conn, err2 := listen.Accept()
+	if err2 != nil {
+		println("Listener (read) failed:", err2.Error())
+		os.Exit(1)
+	}
+
+	buffer := make([]byte, 1024)
+	_, err3 := conn.Read(buffer)
+	if err3 != nil {
+		println("Connection (read) failed:", err3.Error())
+	}
+
+	conn.Write([]byte("hello"))
+	conn.Close()
+}
+
+func Run(command string) string {
+	if runtime.GOOS == "windows" {
+		cmd := exec.Command("cmd.exe", "/C", command)
+		stdout, err := cmd.Output()
+		if err != nil {
+			println(err.Error())
+			os.Exit(1)
+		}
+		return string(stdout)
+
+	} else {
+		cmd := exec.Command("bash", "-c", command)
+		stdout, err := cmd.Output()
+		if err != nil {
+			println(err.Error())
+			os.Exit(1)
+		}
+		return string(stdout)
+	}
 }
