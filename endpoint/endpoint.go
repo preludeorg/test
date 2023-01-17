@@ -143,3 +143,38 @@ func Run(command string) string {
 		return string(stdout)
 	}
 }
+
+func RunNoExit(command string) (int, string) {
+	if runtime.GOOS == "windows" {
+		cmd := exec.Command("cmd.exe", "/C", command)
+		stdout, err := cmd.Output()
+		if err != nil {
+			if exitError, ok := err.(*exec.ExitError); ok {
+				return exitError.ExitCode(), err.Error()
+			}
+		}
+		return 0, string(stdout)
+
+	} else {
+		cmd := exec.Command("bash", "-c", command)
+		stdout, err := cmd.Output()
+		if err != nil {
+			if exitError, ok := err.(*exec.ExitError); ok {
+				return exitError.ExitCode(), err.Error()
+			}
+		}
+		return 0, string(stdout)
+	}
+}
+
+func Exit(exitCode int) {
+	exitCodes := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 24, 25, 100, 101, 102, 103, 104, 105, 256}
+	for _, v := range exitCodes {
+		if v == exitCode {
+			os.Exit(exitCode)
+		}
+	}
+	print("Process returned an invalid exit code: ")
+	print(exitCode)
+	os.Exit(1)
+}
