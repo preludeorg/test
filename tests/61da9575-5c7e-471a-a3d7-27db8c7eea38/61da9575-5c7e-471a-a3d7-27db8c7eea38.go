@@ -17,27 +17,27 @@ import (
 var playwright []byte
 
 func installed() {
-		task := fmt.Sprintf("playwright --version")
-		stdout := Endpoint.Run(task)
-		println(stdout)
-	}
+	task := fmt.Sprintf("playwright --version")
+	stdout := Endpoint.Run(task)
+	println(stdout)
+}
 
 func test() {
- 	os.Setenv("GITHUB_REPO_NAME", "")
- 	os.Setenv("GITHUB_USERNAME", "")
- 	os.Setenv("GITHUB_PASSWORD", "")
+	os.Setenv("GITHUB_REPO_NAME", "")
+	os.Setenv("GITHUB_USERNAME", "")
+	os.Setenv("GITHUB_PASSWORD", "")
 
- 	Endpoint.Write(os.TempDir()+"\\playwright.py", playwright)
+	Endpoint.Write(os.TempDir()+"\\playwright.py", playwright)
 
- 	scriptPath := os.TempDir()+"\\playwright.py"
- 	Endpoint.Run("python3 " + scriptPath)
- 	os.Exit(100)
- }
+	scriptPath := os.TempDir() + "\\playwright.py"
+	Endpoint.Run("python3 " + scriptPath)
+	os.Exit(100)
+}
 
- func clean() {
- 	exitCode := Endpoint.Remove(os.TempDir() + "\\playwright.py")
- 	os.Exit(exitCode)
- }
+func clean() {
+	exitCode := Endpoint.Remove(os.TempDir() + "\\playwright.py")
+	os.Exit(exitCode)
+}
 
 func main() {
 	args := os.Args[1:]
