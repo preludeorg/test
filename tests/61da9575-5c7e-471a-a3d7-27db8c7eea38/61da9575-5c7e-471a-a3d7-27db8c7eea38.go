@@ -18,8 +18,12 @@ var playwright []byte
 
 func installed() {
 	task := fmt.Sprintf("playwright --version")
-	stdout := Endpoint.Run(task)
-	println(stdout)
+	exitCode, stdout, stderr := Endpoint.Run(task)
+	if exitCode != 0 {
+		print("[+] Playwright is not installed: " + stderr)
+		os.Exit(104)
+	}
+	println("[+] Playwright installed: " + stdout)
 }
 
 func test() {

@@ -123,23 +123,25 @@ func Serve(address string, protocol string) {
 	conn.Close()
 }
 
-func Run(command string) string {
+func Run(command string) (int, string, string) {
 	if runtime.GOOS == "windows" {
 		cmd := exec.Command("cmd.exe", "/C", command)
 		stdout, err := cmd.Output()
 		if err != nil {
-			println(err.Error())
-			os.Exit(1)
+			if exitError, ok := err.(*exec.ExitError); ok {
+				return exitError.ExitCode(), string(stdout), string(exitError.Stderr)
+			}
 		}
-		return string(stdout)
+		return 0, string(stdout), ""
 
 	} else {
 		cmd := exec.Command("bash", "-c", command)
 		stdout, err := cmd.Output()
 		if err != nil {
-			println(err.Error())
-			os.Exit(1)
+			if exitError, ok := err.(*exec.ExitError); ok {
+				return exitError.ExitCode(), string(stdout), string(exitError.Stderr)
+			}
 		}
-		return string(stdout)
+		return 0, string(stdout), ""
 	}
 }
