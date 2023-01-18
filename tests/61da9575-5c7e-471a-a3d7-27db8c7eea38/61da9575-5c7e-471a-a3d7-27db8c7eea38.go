@@ -27,15 +27,16 @@ func test() {
 	os.Setenv("GITHUB_USERNAME", "")
 	os.Setenv("GITHUB_PASSWORD", "")
 
-	Endpoint.Write(os.TempDir()+"\\playwright.py", playwright)
+	var scriptPath = os.TempDir() + "\\playwright.py"
 
-	scriptPath := os.TempDir() + "\\playwright.py"
+	Endpoint.Write(scriptPath, playwright)
 	Endpoint.Run("python3 " + scriptPath)
 	os.Exit(100)
 }
 
 func clean() {
-	exitCode := Endpoint.Remove(os.TempDir() + "\\playwright.py")
+	var scriptPath = os.TempDir() + "\\playwright.py"
+	exitCode := Endpoint.Remove(scriptPath)
 	os.Exit(exitCode)
 }
 
