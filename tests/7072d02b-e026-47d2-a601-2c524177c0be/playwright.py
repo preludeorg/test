@@ -65,7 +65,7 @@ def setup_github_test_action(page, repo_name):
 
 
 def select_browser(playwright):
-    browsers = ["chrome", "msedge", "firefox"]
+    browsers = ["chrome", "msedge"]
     for b in browsers:
         try:
             browser = playwright.chromium.launch(channel=b)
