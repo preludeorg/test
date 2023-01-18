@@ -52,6 +52,40 @@ def edit_repository(page):
     page.get_by_placeholder("Create Hello_World.py").fill("Testing Playwright")
     page.get_by_role("button", name="Commit new file").click()
 
+def setup_github_test_action(page, repo_name):
+
+    repo_name = os.environ.get('GITHUB_REPO_NAME')
+    username = os.environ.get('GITHUB_USERNAME')
+ 
+    url = f"https://github.com/{username}/{repo_name}"
+    page.goto(url)
+    page.click('#actions-tab')
+    time.sleep(5)
+    # Click on the "Set up a workflow yourself" url
+    page.click('a[data-hydro-click*="actions.onboarding_setup_workflow_click"]')
+    time.sleep(5)
+    
+    # Define the test GitHub action code
+    action_code = """
+    name: Test
+    on: [push]
+    jobs:
+    test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Test
+    run: echo 'Hello, world!'
+    """
+    
+    page.wait_for_selector('#code-editor')
+    page.fill('#code-editor', action_code)
+    time.sleep(5)
+    page.click('summary[class*="btn-primary"]')
+    time.sleep(5)
+    page.wait_for_selector('#submit-file')
+    page.click('#submit-file')
+
 def select_browser(playwright):
      browsers = ["chrome", "msedge", "firefox"]
      for b in browsers:
@@ -73,9 +107,11 @@ def main():
         if page.url == 'https://github.com/':
             print('Login successful!')
             # Github test actions
-            changepassword(page)
+            setup_github_test_action(page)
             time.sleep(10)
             edit_repository(page)
+            time.sleep(10)
+            changepassword(page)
             time.sleep(10)
             sys.exit(100)
         else:
