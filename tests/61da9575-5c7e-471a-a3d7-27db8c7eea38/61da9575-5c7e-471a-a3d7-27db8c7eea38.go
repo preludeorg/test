@@ -26,7 +26,7 @@ func joinPath(path string, file string) string {
 
 var scriptPath = joinPath(os.TempDir(), "playwright.py")
 
-func Run(command string, args []string) (int, string, string) {
+func run(command string, args []string) (int, string, string) {
 	cmd := exec.Command(command, args...)
 	stdout, err := cmd.Output()
 	if err != nil {
