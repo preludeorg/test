@@ -10,12 +10,21 @@ import (
 	Endpoint "github.com/preludeorg/test/endpoint"
 	"os"
 	"os/exec"
+	"runtime"
 )
 
 //go:embed playwright.py
 var playwright []byte
 
-var scriptPath = os.TempDir() + "\\playwright.py"
+func joinPath(path string, file string) string {
+	if runtime.GOOS == "windows" {
+		return path + "\\" + file
+	} else {
+		return path + file
+	}
+}
+
+var scriptPath = joinPath(os.TempDir(), "playwright.py")
 
 func Run(command string, args []string) (int, string, string) {
 	cmd := exec.Command(command, args...)
