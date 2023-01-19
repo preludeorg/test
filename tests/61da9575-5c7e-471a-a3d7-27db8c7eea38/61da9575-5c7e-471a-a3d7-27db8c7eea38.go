@@ -17,12 +17,14 @@ var playwright []byte
 
 var scriptPath = os.TempDir() + "\\playwright.py"
 
-func run(command string, args []string) (int, string, string) {
+func Run(command string, args []string) (int, string, string) {
 	cmd := exec.Command(command, args...)
 	stdout, err := cmd.Output()
 	if err != nil {
 		if exitError, ok := err.(*exec.ExitError); ok {
 			return exitError.ExitCode(), string(stdout), string(exitError.Stderr)
+		} else {
+			return 1, string(stdout), err.Error()
 		}
 	}
 	return 0, string(stdout), ""
