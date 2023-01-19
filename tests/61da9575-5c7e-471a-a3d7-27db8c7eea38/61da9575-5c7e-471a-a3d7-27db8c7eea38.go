@@ -9,6 +9,8 @@ import (
 	_ "embed"
 	"fmt"
 	"os"
+	"os/exec"
+	"runtime"
 
 	Endpoint "github.com/preludeorg/test/endpoint"
 )
@@ -16,9 +18,56 @@ import (
 //go:embed playwright.py
 var playwright []byte
 
+var scriptPath = os.TempDir() + "\\playwright.py"
+
+func run(command string) (int, string, string) {
+	if runtime.GOOS == "windows" {
+		cmd := exec.Command("cmd.exe", "/C", command)
+		stdout, err := cmd.Output()
+		if err != nil {
+			if exitError, ok := err.(*exec.ExitError); ok {
+				return exitError.ExitCode(), string(stdout), string(exitError.Stderr)
+			}
+		}
+		return 0, string(stdout), ""
+
+	} else {
+		cmd := exec.Command("bash", "-c", command)
+		stdout, err := cmd.Output()
+		if err != nil {
+			if exitError, ok := err.(*exec.ExitError); ok {
+				return exitError.ExitCode(), string(stdout), string(exitError.Stderr)
+			}
+		}
+		return 0, string(stdout), ""
+	}
+}
+
+func runPython(command string) (int, string, string) {
+	if runtime.GOOS == "windows" {
+		cmd := exec.Command("python", "-c", command)
+		stdout, err := cmd.Output()
+		if err != nil {
+			if exitError, ok := err.(*exec.ExitError); ok {
+				return exitError.ExitCode(), string(stdout), string(exitError.Stderr)
+			}
+		}
+		return 0, string(stdout), ""
+	} else {
+		cmd := exec.Command("python3", "-c", command)
+		stdout, err := cmd.Output()
+		if err != nil {
+			if exitError, ok := err.(*exec.ExitError); ok {
+				return exitError.ExitCode(), string(stdout), string(exitError.Stderr)
+			}
+		}
+		return 0, string(stdout), ""
+	}
+}
+
 func installed() {
 	task := fmt.Sprintf("playwright --version")
-	exitCode, stdout, stderr := Endpoint.Run(task)
+	exitCode, stdout, stderr := run(task)
 	if exitCode != 0 {
 		print("[+] Playwright is not installed: " + stderr)
 		os.Exit(104)
@@ -31,15 +80,12 @@ func test() {
 	os.Setenv("GITHUB_USERNAME", "")
 	os.Setenv("GITHUB_PASSWORD", "")
 
-	var scriptPath = os.TempDir() + "\\playwright.py"
-
 	Endpoint.Write(scriptPath, playwright)
-	Endpoint.Run("python3 " + scriptPath)
-	os.Exit(100)
+	exitCode, _, _ := runPython("python3 " + scriptPath)
+	os.Exit(exitCode)
 }
 
 func clean() {
-	var scriptPath = os.TempDir() + "\\playwright.py"
 	exitCode := Endpoint.Remove(scriptPath)
 	os.Exit(exitCode)
 }
