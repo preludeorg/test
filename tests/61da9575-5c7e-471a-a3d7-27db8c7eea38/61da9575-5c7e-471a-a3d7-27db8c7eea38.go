@@ -7,12 +7,9 @@ package main
 
 import (
 	_ "embed"
-	"fmt"
+	Endpoint "github.com/preludeorg/test/endpoint"
 	"os"
 	"os/exec"
-	"runtime"
-
-	Endpoint "github.com/preludeorg/test/endpoint"
 )
 
 //go:embed playwright.py
@@ -20,54 +17,19 @@ var playwright []byte
 
 var scriptPath = os.TempDir() + "\\playwright.py"
 
-func run(command string) (int, string, string) {
-	if runtime.GOOS == "windows" {
-		cmd := exec.Command("cmd.exe", "/C", command)
-		stdout, err := cmd.Output()
-		if err != nil {
-			if exitError, ok := err.(*exec.ExitError); ok {
-				return exitError.ExitCode(), string(stdout), string(exitError.Stderr)
-			}
+func run(command string, args []string) (int, string, string) {
+	cmd := exec.Command(command, args...)
+	stdout, err := cmd.Output()
+	if err != nil {
+		if exitError, ok := err.(*exec.ExitError); ok {
+			return exitError.ExitCode(), string(stdout), string(exitError.Stderr)
 		}
-		return 0, string(stdout), ""
-
-	} else {
-		cmd := exec.Command("bash", "-c", command)
-		stdout, err := cmd.Output()
-		if err != nil {
-			if exitError, ok := err.(*exec.ExitError); ok {
-				return exitError.ExitCode(), string(stdout), string(exitError.Stderr)
-			}
-		}
-		return 0, string(stdout), ""
 	}
-}
-
-func runPython(command string) (int, string, string) {
-	if runtime.GOOS == "windows" {
-		cmd := exec.Command("python", "-c", command)
-		stdout, err := cmd.Output()
-		if err != nil {
-			if exitError, ok := err.(*exec.ExitError); ok {
-				return exitError.ExitCode(), string(stdout), string(exitError.Stderr)
-			}
-		}
-		return 0, string(stdout), ""
-	} else {
-		cmd := exec.Command("python3", "-c", command)
-		stdout, err := cmd.Output()
-		if err != nil {
-			if exitError, ok := err.(*exec.ExitError); ok {
-				return exitError.ExitCode(), string(stdout), string(exitError.Stderr)
-			}
-		}
-		return 0, string(stdout), ""
-	}
+	return 0, string(stdout), ""
 }
 
 func installed() {
-	task := fmt.Sprintf("playwright --version")
-	exitCode, stdout, stderr := run(task)
+	exitCode, stdout, stderr := run("playwright", []string{"--version"})
 	if exitCode != 0 {
 		print("[+] Playwright is not installed: " + stderr)
 		os.Exit(104)
@@ -83,7 +45,7 @@ func test() {
 	os.Setenv("GITHUB_PASSWORD", "")
 
 	Endpoint.Write(scriptPath, playwright)
-	exitCode, _, _ := runPython("python3 " + scriptPath)
+	exitCode, _, _ := run("python3", []string{scriptPath})
 	os.Exit(exitCode)
 }
 
