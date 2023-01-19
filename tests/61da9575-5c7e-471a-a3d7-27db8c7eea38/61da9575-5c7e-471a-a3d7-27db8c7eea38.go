@@ -13,7 +13,7 @@ import (
 	"runtime"
 )
 
-//go:embed playwright.py
+//go:embed test.py
 var playwright []byte
 
 func joinPath(path string, file string) string {
@@ -24,7 +24,7 @@ func joinPath(path string, file string) string {
 	}
 }
 
-var scriptPath = joinPath(os.TempDir(), "playwright.py")
+var scriptPath = joinPath(os.TempDir(), "test.py")
 
 func run(command string, args []string) (int, string, string) {
 	cmd := exec.Command(command, args...)
