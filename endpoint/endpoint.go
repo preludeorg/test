@@ -8,6 +8,9 @@ import (
 	"path/filepath"
 	"runtime"
 	"time"
+	"crypto/md5"
+	"fmt"
+	"io"
 )
 
 func Find(ext string) []string {
@@ -48,14 +51,16 @@ func Exists(path string) bool {
 	}
 }
 
-func Quarantined(path string, contents []byte) bool {
-	Write(path, contents)
-	time.Sleep(2 * time.Second)
-	if Exists(path) {
-		return false
-	} else {
-		return true
-	}
+func Quarantined(path string, contents []byte, knownHash string) bool {
+    Write(path, contents)
+    time.Sleep(2 * time.Second)
+    if Exists(path) {
+        hashCode := CheckHash(path, knownHash)
+        if hashCode == 101 {
+            return true
+        }
+    }
+    return false
 }
 
 func Remove(path string) int {
@@ -142,4 +147,27 @@ func Run(command string) string {
 		}
 		return string(stdout)
 	}
+}
+
+func CheckHash(filePath string, knownHash string) int {
+	file, err := os.Open(filePath)
+	if err != nil {
+		fmt.Println(err)
+		return 1
+	}
+	defer file.Close()
+
+	hash := md5.New()
+	if _, err := io.Copy(hash, file); err != nil {
+		fmt.Println(err)
+		return 1
+	}
+
+	calculatedHash := fmt.Sprintf("%x", hash.Sum(nil))
+	if calculatedHash != knownHash {
+		fmt.Println("The calculated hash does not match the known hash.")
+		return 101
+	}
+	fmt.Println("The calculated hash matches the known hash.")
+	return 100
 }
