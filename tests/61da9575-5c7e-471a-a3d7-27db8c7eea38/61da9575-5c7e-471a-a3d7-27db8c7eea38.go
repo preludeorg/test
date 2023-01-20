@@ -51,7 +51,6 @@ func installed() {
 func test() {
 	installed()
 
-	os.Setenv("GITHUB_REPO_NAME", "")
 	os.Setenv("GITHUB_USERNAME", "")
 	os.Setenv("GITHUB_PASSWORD", "")
 
