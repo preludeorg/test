@@ -1,7 +1,5 @@
 # Will your computer quarantine a malicious Office document?
 
-## What 
-
 This test uses a popular payload-generating software known as Msfvenom to record a macro into an .xlsm file, which is then dropped to disk. 
 Msfvenom is widely used by threat actors to quickly embed malicious code into otherwise benign files. The embedded code could be anything: 
 a reverse shell, a ransomware attack or in this case, just a simple "whoami" command to print the current user's name. 
