@@ -44,9 +44,9 @@ Run any test in this project by first installing the Endpoint module:
 go get -u github.com/preludeorg/test/endpoint
 ```
 
-Then compile a test:
+Then compile any test:
 ```
 go build -o test <UUID>.go
 ```
 
-And run a test with ``./test`` and clean up with ``./test cleanup``.
+And run the test with ``./test`` and clean up function with ``./test cleanup``.
