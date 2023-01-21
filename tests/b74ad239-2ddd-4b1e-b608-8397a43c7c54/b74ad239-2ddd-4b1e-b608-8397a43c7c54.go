@@ -1,5 +1,5 @@
 /*
-NAME: b74ad239-2ddd-4b1e-b608-8397a43c7c54.go
+ID: b74ad239-2ddd-4b1e-b608-8397a43c7c54
 RULE: Malicious files are quarantined
 CREATED: 2023-01-03
 */

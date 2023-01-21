@@ -1,5 +1,5 @@
 /*
-NAME: db201110-d875-4133-9709-2732a47f252f.go
+ID: db201110-d875-4133-9709-2732a47f252f
 RULE: Block ransomware attacks
 CREATED: 2023-01-03
 */
