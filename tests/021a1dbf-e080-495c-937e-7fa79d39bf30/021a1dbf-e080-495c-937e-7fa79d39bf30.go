@@ -13,11 +13,11 @@ import (
 
 func command1() string {
 	if runtime.GOOS == "windows" {
-		return ""
+		return "(([xml](Get-GPOReport -Name 'Default Domain Policy' -ReportType Xml)).GPO.Computer.ExtensionData.Extension.Account)| Select-Object Name, SettingNumber"
 	} else if runtime.GOOS == "darwin" {
 		return "pwpolicy getaccountpolicies"
 	} else {
-		return "(([xml](Get-GPOReport -Name 'Default Domain Policy' -ReportType Xml)).GPO.Computer.ExtensionData.Extension.Account)| Select-Object Name, SettingNumber"
+		return "cat /etc/pam.d/common-password"
 	}
 }
 
