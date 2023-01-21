@@ -1,5 +1,5 @@
 /*
-FILENAME: 61da9575-5c7e-471a-a3d7-27db8c7eea38.go
+ID: 61da9575-5c7e-471a-a3d7-27db8c7eea38
 RULE: Playwright GitHub Actions
 CREATED: 2023-01-18
 */

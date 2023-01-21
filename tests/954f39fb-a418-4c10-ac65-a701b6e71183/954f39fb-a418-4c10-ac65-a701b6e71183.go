@@ -1,5 +1,5 @@
 /*
-NAME: 954f39fb-a418-4c10-ac65-a701b6e71183.go
+ID: 954f39fb-a418-4c10-ac65-a701b6e71183
 RULE: The device should not serve a network-connectable port
 CREATED: 2023-01-03
 */

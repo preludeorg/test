@@ -1,5 +1,5 @@
 /*
-NAME: 39de298a-911d-4a3b-aed4-1e8281010a9a.go
+ID: 39de298a-911d-4a3b-aed4-1e8281010a9a
 RULE: Health check
 CREATED: 2023-01-03
 */
