@@ -7,6 +7,13 @@ Because this software is so popular, it carries a signature that can be flagged 
 For the macro to work, a user would need to open the file and ensure macros are enabled - which is a separate set of controls that offer protection - 
 but an endpoint should never let it get that far.
 
+Example output:
+```
+[+] Extracting file for quarantine test
+[+] Pausing for 2 seconds to gauge defensive reaction
+[-] Malicious file was not caught
+```
+
 ## How
 
 An .xlsm file containing the macro is extracted from the test and written to a user-owned directory. The test then waits briefly before running a few checks to determine if it was responded to (not just detected) by any defensive products on the endpoint. 
