@@ -37,13 +37,16 @@ status := Endpoint.Remove("malicious.xlsm")
 os.Exit(status)
 ```
 
-## Write your own tests
+## Quick start
 
-The Endpoint module is a shared set of functions for security tests to use. Shared functions revolve around common needs, such as writing or reading files or downloading files from the internet.
-
-If developing tests locally, install the Go module:
+Run any test in this project by first installing the Endpoint module:
 ```bash
 go get -u github.com/preludeorg/test/endpoint
 ```
 
-Then use any of the included functions in your own tests. Note a few use cases in the example above.
+Then compile a test:
+```
+go build -o test <UUID>.go
+```
+
+And run a test with ``./test`` and clean up with ``./test cleanup``.
