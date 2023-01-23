@@ -15,7 +15,6 @@ import (
 var malicious []byte
 
 func test() {
-	Endpoint.Write("malicious.xlsm", malicious)
 	println("[+] Extracting file for quarantine test")
 	println("[+] Pausing for 1 second to gauge defensive reaction")
 	if Endpoint.Quarantined("malicious.xlsm", []byte("malicious"), "notmalicious.xlsm") {
