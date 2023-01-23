@@ -69,12 +69,15 @@ func Exists(path string) bool {
 
 func Quarantined(path string, contents []byte) bool {
 	Write(path, contents)
-	time.Sleep(2 * time.Second)
+	time.Sleep(1 * time.Second)
 	if Exists(path) {
-		return false
-	} else {
-		return true
+		file, err := os.Open(path)
+		if err != nil {
+			return true
+		}
+		defer file.Close()
 	}
+	return false
 }
 
 func Remove(path string) int {
