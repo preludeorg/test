@@ -5,7 +5,18 @@ import (
 	"os"
 )
 
-func Stop(code int, stage string) {
-	print(fmt.Sprintf("Completed %s stage: %d", stage, code))
+type fn func()
+
+func Start(test fn, clean fn) {
+	args := os.Args[1:]
+	if len(args) > 0 {
+		clean()
+	} else {
+		test()
+	}
+}
+
+func Stop(code int) {
+	print(fmt.Sprintf("Completed test: %d", code))
 	os.Exit(code)
 }
