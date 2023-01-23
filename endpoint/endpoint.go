@@ -16,16 +16,16 @@ type fn func()
 func Start(test fn, clean fn) {
 	args := os.Args[1:]
 	if len(args) > 0 {
-		println("Starting cleanup")
+		println("[+] Starting cleanup")
 		clean()
 	} else {
-		println("Starting test")
+		println("[+] Starting test")
 		test()
 	}
 }
 
 func Stop(code int) {
-	println(fmt.Sprintf("Completed with code: %d", code))
+	println(fmt.Sprintf("[+] Completed with code: %d", code))
 	os.Exit(code)
 }
 
@@ -91,19 +91,19 @@ func Remove(path string) int {
 func DialTCP(address string, message string) int {
 	tcpAddr, err := net.ResolveTCPAddr("tcp", address)
 	if err != nil {
-		println("Failed to resolve:", err.Error())
+		println("[-] Failed to resolve:", err.Error())
 		return 1
 	}
 
 	conn, err := net.DialTCP("tcp", nil, tcpAddr)
 	if err != nil {
-		println("Connection failure:", err.Error())
+		println("[-] Connection failure:", err.Error())
 		return 1
 	}
 
 	_, err = conn.Write([]byte(message))
 	if err != nil {
-		println("Write to server failed:", err.Error())
+		println("[-] Write to server failed:", err.Error())
 		return 1
 	}
 
@@ -111,17 +111,17 @@ func DialTCP(address string, message string) int {
 
 	_, err = conn.Read(reply)
 	if err != nil {
-		println("Read response failed:", err.Error())
+		println("[-] Read response failed:", err.Error())
 		return 1
 	}
 
 	conn.Close()
-	println("Server reply: ", string(reply))
+	println("[+] Server reply: ", string(reply))
 	return 0
 }
 
 func Serve(address string, protocol string) {
-	println("Serving: ", address)
+	println("[+] Serving: ", address)
 	listen, err1 := net.Listen(protocol, address)
 	if err1 != nil {
 		println("Listener (serve) failed:", err1.Error())
@@ -131,14 +131,14 @@ func Serve(address string, protocol string) {
 
 	conn, err2 := listen.Accept()
 	if err2 != nil {
-		println("Listener (read) failed:", err2.Error())
+		println("[-] Listener (read) failed:", err2.Error())
 		os.Exit(1)
 	}
 
 	buffer := make([]byte, 1024)
 	_, err3 := conn.Read(buffer)
 	if err3 != nil {
-		println("Connection (read) failed:", err3.Error())
+		println("[-] Connection (read) failed:", err3.Error())
 	}
 
 	conn.Write([]byte("hello"))
