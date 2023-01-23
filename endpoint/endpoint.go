@@ -48,14 +48,16 @@ func Exists(path string) bool {
 	}
 }
 
-func Quarantined(path string, contents []byte) bool {
+func Quarantined(path string, contents []byte, quarantinePath string) bool {
 	Write(path, contents)
-	time.Sleep(2 * time.Second)
+	time.Sleep(1 * time.Second)
 	if Exists(path) {
-		return false
-	} else {
-		return true
+		err := os.Rename(path, quarantinePath)
+		if err != nil {
+			return true
+		}
 	}
+	return false
 }
 
 func Remove(path string) int {
