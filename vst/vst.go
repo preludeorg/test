@@ -1,4 +1,4 @@
-package Test
+package VST
 
 import (
 	"fmt"
