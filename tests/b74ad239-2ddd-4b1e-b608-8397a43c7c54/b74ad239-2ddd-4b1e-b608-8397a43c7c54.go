@@ -15,14 +15,16 @@ import (
 var malicious []byte
 
 func test() {
+	Endpoint.Write("malicious.xlsm", malicious)
 	println("[+] Extracting file for quarantine test")
-	println("[+] Pausing for 2 seconds to gauge defensive reaction")
-	if Endpoint.Quarantined("malicious.xlsm", malicious) {
+	println("[+] Pausing for 1 second to gauge defensive reaction")
+	if Endpoint.Quarantined("malicious.xlsm", []byte("malicious"), "notmalicious.xlsm") {
 		println("[+] Malicious file was caught!")
 		os.Exit(100)
+	} else {
+		println("[-] Malicious file was not caught")
+		os.Exit(101)
 	}
-	println("[-] Malicious file was not caught")
-	os.Exit(101)
 }
 
 func clean() {
