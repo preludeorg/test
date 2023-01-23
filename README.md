@@ -49,4 +49,4 @@ Then compile any test:
 go build -o test <UUID>.go
 ```
 
-And run the test with ``./test`` and clean up function with ``./test cleanup``.
+And run the test with ``./test`` and clean up function with ``./test cleanup``. Evaluate the exit code of each to check passed/failed state.
