@@ -24,4 +24,6 @@ While looking up this information from a browser may be normal, looking it up pr
 
 ## How
 
+> Safety: discovered details are never sent off the device
+
 This test uses a free service hosted at http://ipinfo.io which displays the IP information of the caller. It exits successfully if the lookup is allowed to complete.
