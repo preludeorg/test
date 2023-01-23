@@ -7,7 +7,6 @@ package main
 
 import (
 	"github.com/preludeorg/test/endpoint"
-	"github.com/preludeorg/test/vst"
 	"runtime"
 )
 
@@ -36,13 +35,13 @@ func test() {
 		response2 := Endpoint.Run(command2())
 		print(response2)
 	}
-	VST.Stop(101)
+	Endpoint.Stop(101)
 }
 
 func clean() {
-	VST.Stop(100)
+	Endpoint.Stop(100)
 }
 
 func main() {
-	VST.Start(test, clean)
+	Endpoint.Start(test, clean)
 }

@@ -7,7 +7,6 @@ package main
 
 import (
 	"github.com/preludeorg/test/endpoint"
-	"github.com/preludeorg/test/vst"
 	"time"
 )
 
@@ -17,15 +16,15 @@ func test() {
 
 	code := Endpoint.DialTCP("localhost:8888", "hello")
 	if code == 0 {
-		VST.Stop(101)
+		Endpoint.Stop(101)
 	}
-	VST.Stop(100)
+	Endpoint.Stop(100)
 }
 
 func clean() {
-	VST.Stop(100)
+	Endpoint.Stop(100)
 }
 
 func main() {
-	VST.Start(test, clean)
+	Endpoint.Start(test, clean)
 }

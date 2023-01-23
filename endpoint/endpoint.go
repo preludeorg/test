@@ -1,6 +1,7 @@
 package Endpoint
 
 import (
+	"fmt"
 	"io/fs"
 	"net"
 	"os"
@@ -9,6 +10,24 @@ import (
 	"runtime"
 	"time"
 )
+
+type fn func()
+
+func Start(test fn, clean fn) {
+	args := os.Args[1:]
+	if len(args) > 0 {
+		println("Starting cleanup")
+		clean()
+	} else {
+		println("Starting test")
+		test()
+	}
+}
+
+func Stop(code int) {
+	println(fmt.Sprintf("Completed with code: %d", code))
+	os.Exit(code)
+}
 
 func Find(ext string) []string {
 	dirname, _ := os.UserHomeDir()
