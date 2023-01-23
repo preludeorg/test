@@ -19,15 +19,6 @@ Getting global account policies
 		<dict>
 			<key>policyContent</key>
 			<string>policyAttributePassword matches '.{4,}+'</string>
-			<key>policyContentDescription</key>
-			<dict>
-				<key>ar</key>
-				<string>أدخل كلمة سر لا تقل عن أربعة أحرف أو رموز.</string>
-				<key>ca</key>
-				<string>Introdueix una contrasenya que tingui quatre caràcters o més.</string>
-				<key>cs</key>
-				<string>Zadejte heslo o minimální délce čtyři znaky.</string>
-				<key>da</key>  
 .....
 .....
 ```
@@ -35,5 +26,7 @@ Getting global account policies
 Looking up the password policy programmatically should be flagged as suspicious.
 
 ## How
+
+> Safety: discovered details are never sent off the device
 
 This test attempts to read the local password policy stored on disk. If the policy is not readable by the local user, it should fail. If the policy can be read, the test then scans all files in their home directory looking for strings starting with the letter "P" and that are exactly 20 characters long (a made up policy).

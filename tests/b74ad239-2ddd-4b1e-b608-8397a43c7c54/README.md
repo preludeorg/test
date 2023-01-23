@@ -14,6 +14,10 @@ Example output:
 [-] Malicious file was not caught
 ```
 
+Defenses should quarantine files with known signatures immediately.
+
 ## How
+
+> Safety: the macro has been defanged, so even if run, it will only print your username
 
 An .xlsm file containing the macro is extracted from the test and written to a user-owned directory. The test then waits briefly before running a few checks to determine if it was responded to (not just detected) by any defensive products on the endpoint. 
