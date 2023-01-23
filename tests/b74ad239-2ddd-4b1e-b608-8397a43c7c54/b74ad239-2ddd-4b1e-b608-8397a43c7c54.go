@@ -8,7 +8,7 @@ package main
 import (
 	_ "embed"
 	"github.com/preludeorg/test/endpoint"
-	"os"
+	"github.com/preludeorg/test/vst"
 )
 
 //go:embed malicious.xlsm
@@ -19,23 +19,18 @@ func test() {
 	println("[+] Pausing for 2 seconds to gauge defensive reaction")
 	if Endpoint.Quarantined("malicious.xlsm", malicious) {
 		println("[+] Malicious file was caught!")
-		os.Exit(100)
+		VST.Stop(100)
 	}
 	println("[-] Malicious file was not caught")
-	os.Exit(101)
+	VST.Stop(101)
 }
 
 func clean() {
 	println("[+] Ensuring malicious file is no longer present")
 	status := Endpoint.Remove("malicious.xlsm")
-	os.Exit(status)
+	VST.Stop(status)
 }
 
 func main() {
-	args := os.Args[1:]
-	if len(args) > 0 {
-		clean()
-	} else {
-		test()
-	}
+	VST.Start(test, clean)
 }

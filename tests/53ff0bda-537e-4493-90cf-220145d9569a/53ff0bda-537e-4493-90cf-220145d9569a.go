@@ -8,7 +8,7 @@ package main
 import (
 	"fmt"
 	"github.com/preludeorg/test/endpoint"
-	"os"
+	"github.com/preludeorg/test/vst"
 	"runtime"
 )
 
@@ -18,25 +18,19 @@ func test() {
 		task := fmt.Sprintf("powershell.exe -e %s", encoded)
 		stdout := Endpoint.Run(task)
 		println(stdout)
-		os.Exit(100)
 	} else {
 		encoded := "d2hvYW1p"
 		task := fmt.Sprintf("base64 -d <<< %s | bash", encoded)
 		stdout := Endpoint.Run(task)
 		println(stdout)
-		os.Exit(100)
 	}
+	VST.Stop(101)
 }
 
 func clean() {
-	os.Exit(100)
+	VST.Stop(100)
 }
 
 func main() {
-	args := os.Args[1:]
-	if len(args) > 0 {
-		clean()
-	} else {
-		test()
-	}
+	VST.Start(test, clean)
 }

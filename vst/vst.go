@@ -17,6 +17,6 @@ func Start(test fn, clean fn) {
 }
 
 func Stop(code int) {
-	print(fmt.Sprintf("Completed test: %d", code))
+	print(fmt.Sprintf("Completed with code: %d", code))
 	os.Exit(code)
 }
