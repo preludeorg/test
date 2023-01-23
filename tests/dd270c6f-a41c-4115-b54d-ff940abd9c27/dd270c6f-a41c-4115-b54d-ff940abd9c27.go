@@ -7,7 +7,7 @@ package main
 
 import (
 	"github.com/preludeorg/test/endpoint"
-	"os"
+	"github.com/preludeorg/test/vst"
 	"runtime"
 )
 
@@ -22,18 +22,13 @@ func command() string {
 func test() {
 	response := Endpoint.Run(command())
 	print(response)
-	os.Exit(100)
+	VST.Stop(101)
 }
 
 func clean() {
-	os.Exit(100)
+	VST.Stop(100)
 }
 
 func main() {
-	args := os.Args[1:]
-	if len(args) > 0 {
-		clean()
-	} else {
-		test()
-	}
+	VST.Start(test, clean)
 }

@@ -9,11 +9,11 @@ import (
 	"crypto/aes"
 	"crypto/cipher"
 	"crypto/rand"
-	"os"
 	"os/user"
 	"path/filepath"
 
 	Endpoint "github.com/preludeorg/test/endpoint"
+	VST "github.com/preludeorg/test/vst"
 )
 
 func Encrypt(key, data []byte) ([]byte, error) {
@@ -59,7 +59,7 @@ func test() {
 	key, err := GenerateKey()
 	if err != nil {
 		println(err)
-		os.Exit(1)
+		VST.Stop(1)
 	}
 	println("[+] Generated a new encryption key")
 
@@ -76,7 +76,7 @@ func test() {
 		Endpoint.Write(filepath.Join(usr.HomeDir, name), encryptBytes)
 	}
 
-	os.Exit(100)
+	VST.Stop(101)
 }
 
 func clean() {
@@ -86,14 +86,9 @@ func clean() {
 	for _, name := range arr {
 		Endpoint.Remove(filepath.Join(usr.HomeDir, name))
 	}
-	os.Exit(100)
+	VST.Stop(100)
 }
 
 func main() {
-	args := os.Args[1:]
-	if len(args) > 0 {
-		clean()
-	} else {
-		test()
-	}
+	VST.Start(test, clean)
 }

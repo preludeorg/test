@@ -7,7 +7,7 @@ package main
 
 import (
 	"github.com/preludeorg/test/endpoint"
-	"os"
+	"github.com/preludeorg/test/vst"
 	"time"
 )
 
@@ -17,20 +17,15 @@ func test() {
 
 	code := Endpoint.DialTCP("localhost:8888", "hello")
 	if code == 0 {
-		os.Exit(101)
+		VST.Stop(101)
 	}
-	os.Exit(100)
+	VST.Stop(100)
 }
 
 func clean() {
-	os.Exit(100)
+	VST.Stop(100)
 }
 
 func main() {
-	args := os.Args[1:]
-	if len(args) > 0 {
-		clean()
-	} else {
-		test()
-	}
+	VST.Start(test, clean)
 }
