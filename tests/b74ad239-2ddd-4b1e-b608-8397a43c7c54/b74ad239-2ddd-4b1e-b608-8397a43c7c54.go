@@ -1,6 +1,6 @@
 /*
 ID: b74ad239-2ddd-4b1e-b608-8397a43c7c54
-RULE: Malicious files are quarantined
+RULE: Quarantine malicious files
 CREATED: 2023-01-03
 */
 package main
