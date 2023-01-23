@@ -25,16 +25,16 @@ During the test it runs the ``Quarantined`` check, which writes the file to disk
 ```go
 if Endpoint.Quarantined("malicious.xlsm", malicious) {
 	println("[+] Malicious file was caught!")
-	os.Exit(100)
+	Endpoint.Stop(100)
 }
 println("[-] Malicious file was not caught")
-os.Exit(101)
+Endpoint.Stop(101)
 ```
 
 Finally, the clean function ensures the malicious .xlsm file is removed from the disk, exiting with either a 100 (good/expected) or 103 (bad/cleanup failure) status:
 ```go
 status := Endpoint.Remove("malicious.xlsm")
-os.Exit(status)
+Endpoint.Stop(status)
 ```
 
 ## Quick start
