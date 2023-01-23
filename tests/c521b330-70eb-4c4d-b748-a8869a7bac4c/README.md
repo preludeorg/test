@@ -13,4 +13,4 @@ Defenses should quarantine files with known signatures immediately.
 
 > Safety: the file has been defanged, so even if run, it will only print your username or start a reverse shell pointing to localhost.
 
-A file containing an operating specific payload is dropped to disk either by a probe or standalone. Using a probe the file is executed automatically and attempts to execute one of the operating system specfic payloads if it is not quarantined.
+A file containing an operating specific payload is dropped to disk either by a probe or standalone. Using a probe the file is executed automatically and attempts to execute one of the operating system specific payloads if it is not quarantined.
