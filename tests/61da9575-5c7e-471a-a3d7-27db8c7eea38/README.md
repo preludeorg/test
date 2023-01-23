@@ -4,8 +4,6 @@ Playwright is an open-source, cross-platform library for automating web browsers
 
 This Playwright-specific test will first check if Playwright is installed if it is then it will execute a series of actions within GitHub such as creating and modifying a repository, submitting an issue, and changing Branch settings to lock the `main` branch if Playwright is installed on the host.
 
-
-
 Example output:
 ```
 [+] Playwright installed: Version 1.29.1
