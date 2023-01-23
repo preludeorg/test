@@ -55,7 +55,11 @@ func test() {
 	os.Setenv("GITHUB_PASSWORD", "")
 
 	Endpoint.Write(scriptPath, playwright)
-	exitCode, _, _ := run("python3", []string{scriptPath})
+	if runtime.GOOS == "windows" {
+		exitCode, _, _ := run("python", []string{scriptPath})
+	} else {
+		exitCode, _, _ := run("python3", []string{scriptPath})
+	}
 	Endpoint.Stop(exitCode)
 }
 
@@ -65,5 +69,5 @@ func clean() {
 }
 
 func main() {
- 	Endpoint.Start(test, clean)
- }
+	Endpoint.Start(test, clean)
+}
