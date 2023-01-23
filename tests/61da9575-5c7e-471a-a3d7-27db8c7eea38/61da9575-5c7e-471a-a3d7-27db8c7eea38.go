@@ -43,7 +43,7 @@ func installed() {
 	exitCode, stdout, stderr := run("playwright", []string{"--version"})
 	if exitCode != 0 {
 		print("[+] Playwright is not installed: " + stderr)
-		os.Exit(104)
+		Endpoint.Stop(104)
 	}
 	println("[+] Playwright installed: " + stdout)
 }
@@ -56,19 +56,14 @@ func test() {
 
 	Endpoint.Write(scriptPath, playwright)
 	exitCode, _, _ := run("python3", []string{scriptPath})
-	os.Exit(exitCode)
+	Endpoint.Stop(exitCode)
 }
 
 func clean() {
 	exitCode := Endpoint.Remove(scriptPath)
-	os.Exit(exitCode)
+	Endpoint.Stop(exitCode)
 }
 
 func main() {
-	args := os.Args[1:]
-	if len(args) > 0 {
-		clean()
-	} else {
-		test()
-	}
-}
+ 	Endpoint.Start(test, clean)
+ }
