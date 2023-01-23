@@ -55,10 +55,15 @@ func test() {
 	os.Setenv("GITHUB_PASSWORD", "")
 
 	Endpoint.Write(scriptPath, playwright)
+	var command string
 	if runtime.GOOS == "windows" {
-		exitCode, _, _ := run("python", []string{scriptPath})
+		command = "python"
 	} else {
-		exitCode, _, _ := run("python3", []string{scriptPath})
+		command = "python3"
+	}
+	exitCode, _, _ := run(command, []string{scriptPath})
+	if exitCode != 0 {
+		Endpoint.Stop(exitCode)
 	}
 	Endpoint.Stop(exitCode)
 }
