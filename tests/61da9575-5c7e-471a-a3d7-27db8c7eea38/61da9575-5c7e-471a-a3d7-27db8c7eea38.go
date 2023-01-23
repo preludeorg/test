@@ -20,7 +20,7 @@ func joinPath(path string, file string) string {
 	if runtime.GOOS == "windows" {
 		return path + "\\" + file
 	} else {
-		return path + file
+		return path + "/" + file
 	}
 }
 
