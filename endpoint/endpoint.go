@@ -82,13 +82,11 @@ func Quarantined(path string, contents []byte) bool {
 
 func Remove(path string) bool {
 	e := os.Remove(path)
-	if e != nil {
-		return false
-	}
-	return true
+	return e == nil
 }
 
 func DialTCP(address string, message string) int {
+	println("[+] Connection opening to ", address)
 	tcpAddr, err := net.ResolveTCPAddr("tcp", address)
 	if err != nil {
 		println("[-] Failed to resolve:", err.Error())
@@ -107,16 +105,8 @@ func DialTCP(address string, message string) int {
 		return 1
 	}
 
-	reply := make([]byte, 1024)
-
-	_, err = conn.Read(reply)
-	if err != nil {
-		println("[-] Read response failed:", err.Error())
-		return 1
-	}
-
 	conn.Close()
-	println("[+] Server reply: ", string(reply))
+	println("[+] Client connection closing")
 	return 0
 }
 
