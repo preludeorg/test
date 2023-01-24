@@ -1,5 +1,5 @@
 /*
-NAME: db201110-d875-4133-9709-2732a47f252f.go
+ID: db201110-d875-4133-9709-2732a47f252f
 RULE: Block ransomware attacks
 CREATED: 2023-01-03
 */
@@ -9,7 +9,6 @@ import (
 	"crypto/aes"
 	"crypto/cipher"
 	"crypto/rand"
-	"os"
 	"os/user"
 	"path/filepath"
 
@@ -59,7 +58,7 @@ func test() {
 	key, err := GenerateKey()
 	if err != nil {
 		println(err)
-		os.Exit(1)
+		Endpoint.Stop(1)
 	}
 	println("[+] Generated a new encryption key")
 
@@ -76,7 +75,7 @@ func test() {
 		Endpoint.Write(filepath.Join(usr.HomeDir, name), encryptBytes)
 	}
 
-	os.Exit(100)
+	Endpoint.Stop(101)
 }
 
 func clean() {
@@ -86,14 +85,9 @@ func clean() {
 	for _, name := range arr {
 		Endpoint.Remove(filepath.Join(usr.HomeDir, name))
 	}
-	os.Exit(100)
+	Endpoint.Stop(100)
 }
 
 func main() {
-	args := os.Args[1:]
-	if len(args) > 0 {
-		clean()
-	} else {
-		test()
-	}
+	Endpoint.Start(test, clean)
 }

@@ -25,25 +25,28 @@ During the test it runs the ``Quarantined`` check, which writes the file to disk
 ```go
 if Endpoint.Quarantined("malicious.xlsm", malicious) {
 	println("[+] Malicious file was caught!")
-	os.Exit(100)
+	Endpoint.Stop(100)
 }
 println("[-] Malicious file was not caught")
-os.Exit(101)
+Endpoint.Stop(101)
 ```
 
 Finally, the clean function ensures the malicious .xlsm file is removed from the disk, exiting with either a 100 (good/expected) or 103 (bad/cleanup failure) status:
 ```go
 status := Endpoint.Remove("malicious.xlsm")
-os.Exit(status)
+Endpoint.Stop(status)
 ```
 
-## Write your own tests
+## Quick start
 
-The Endpoint module is a shared set of functions for security tests to use. Shared functions revolve around common needs, such as writing or reading files or downloading files from the internet.
-
-If developing tests locally, install the Go module:
+Run any test in this project by first installing the Endpoint module:
 ```bash
 go get -u github.com/preludeorg/test/endpoint
 ```
 
-Then use any of the included functions in your own tests. Note a few use cases in the example above.
+Then compile any test:
+```
+go build -o test <UUID>.go
+```
+
+And run the test with ``./test`` and clean up function with ``./test cleanup``. Evaluate the exit code of each to check passed/failed state.
