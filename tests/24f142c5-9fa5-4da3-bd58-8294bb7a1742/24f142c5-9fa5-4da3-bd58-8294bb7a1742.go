@@ -1,5 +1,5 @@
 /*
-NAME: macro.go
+NAME: 24f142c5-9fa5-4da3-bd58-8294bb7a1742.go
 RULE: Has a macro-enabled document been executed
 CREATED: 2023-01-04
 */
