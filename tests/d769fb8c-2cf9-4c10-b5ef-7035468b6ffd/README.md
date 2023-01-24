@@ -5,7 +5,7 @@ Endpoints are typically configured, by default, with outbound internet access fu
 Example output:
 ```
 [+] Starting test
-[+] Connection opening to  77.88.55.80:443
+[+] Connection opening to 77.88.55.80:443
 [+] Client connection closing
 [+] Completed with code: 101
 ```
