@@ -21,7 +21,7 @@ import (
 func test() {
 	if runtime.GOOS != "windows" {
 		println("This is a Windows-only test")
-		os.Exit(104) // The test is not relevant to the endpoint
+		Endpoint.Stop(104) // The test is not relevant to the endpoint
 	}
 
 	exit := 101
@@ -34,12 +34,12 @@ func test() {
 		if err.Error() == "The system cannot find the file specified." {
 			println("Office is not installed.")
 			k.Close()
-			os.Exit(exit)
+			Endpoint.Stop(exit)
 		} else {
 			println("Error opening registry key: HKCU\\" + office_path)
 			println(err.Error())
 			k.Close()
-			os.Exit(1)
+			Endpoint.Stop(1)
 		}
 	}
 	defer k.Close()
@@ -51,7 +51,7 @@ func test() {
 		if err != nil {
 			println("Error matching Office version string: " + office_versions[i])
 			println(err.Error())
-			os.Exit(1)
+			Endpoint.Stop(1)
 		}
 
 		if matched {
@@ -67,7 +67,7 @@ func test() {
 						println("Error opening registry key: HKCU\\" + path)
 						println(err.Error())
 						k.Close()
-						os.Exit(1)
+						Endpoint.Stop(1)
 					}
 				}
 				defer k.Close()
@@ -90,13 +90,13 @@ func test() {
 		}
 	}
 	if errors > 0 && exit == 101 {
-		os.Exit(1)
+		Endpoint.Stop(1)
 	}
-	os.Exit(exit)
+	Endpoint.Stop(exit)
 }
 
 func clean() {
-	os.Exit(100)
+	Endpoint.Stop(100)
 }
 
 func main() {
