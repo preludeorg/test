@@ -1,6 +1,6 @@
 /*
 ID: dd270c6f-a41c-4115-b54d-ff940abd9c27
-RULE: Protect privacy of the end user
+RULE: Protect user privacy
 CREATED: 2023-01-21
 */
 package main

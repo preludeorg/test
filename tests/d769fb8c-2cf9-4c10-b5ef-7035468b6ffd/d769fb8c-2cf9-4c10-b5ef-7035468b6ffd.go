@@ -1,6 +1,6 @@
 /*
 ID: d769fb8c-2cf9-4c10-b5ef-7035468b6ffd
-RULE: Block network requests to specific countries
+RULE: Enforce an outbound firewall
 CREATED: 2023-01-24
 */
 package main
