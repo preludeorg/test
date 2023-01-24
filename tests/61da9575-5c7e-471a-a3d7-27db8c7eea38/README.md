@@ -1,6 +1,6 @@
 # SaaS test: GitHub
 
-> SaaS tests have preconditions which must be set before execution. These tests are not testing endpoint defenses but instead intended to trigger events you should observe in your backend SIEM or events dashboards.
+> SaaS tests have preconditions which must be set before execution. These tests do not test endpoint defenses but instead trigger events you should observe in your backend SIEM or events dashboards.
 
 Playwright is an open-source library for automating web browsers. It allows developers to write scripts in multiple languages, including Python, that can interact with web pages in a similar way as a human. On the security side, Playwright can be used to run a series of actions inside a Software as a Service (SaaS) provider to test if any defenses notice odd or suspicious behaviors. 
 
