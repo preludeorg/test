@@ -1,8 +1,12 @@
+//go:build windows || !darwin || !linux
+// +build windows !darwin !linux
+
 /*
 NAME: 24f142c5-9fa5-4da3-bd58-8294bb7a1742.go
 RULE: Has a macro-enabled document been executed
 CREATED: 2023-01-04
 */
+
 package main
 
 import (
@@ -10,6 +14,8 @@ import (
 	"os"
 	"regexp"
 	"runtime"
+
+	"github.com/preludeorg/test/endpoint"
 )
 
 func test() {
@@ -94,10 +100,5 @@ func clean() {
 }
 
 func main() {
-	args := os.Args[1:]
-	if len(args) > 0 {
-		clean()
-	} else {
-		test()
-	}
+	Endpoint.Start(test, clean)
 }
