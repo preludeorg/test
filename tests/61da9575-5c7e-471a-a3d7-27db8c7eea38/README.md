@@ -1,20 +1,20 @@
-# Can you use Playwright to execute actions in GitHub?
+# SaaS test: GitHub
 
-Playwright is an open-source, cross-platform library for automating web browsers. It allows developers to write scripts in multiple languages including Python that can interact with web pages in a way similar to how a user would. Playwright can be used for tasks such as web scraping, browser testing, and automating web-based tasks or attacks.
+> SaaS tests have preconditions which must be set before execution. These tests are not testing endpoint defenses but instead intended to trigger events you should observe in your backend SIEM or events dashboards.
 
-This Playwright-specific test will first check if Playwright is installed if it is then it will execute a series of actions within GitHub such as creating and modifying a repository, submitting an issue, and changing Branch settings to lock the `main` branch if Playwright is installed on the host.
+Playwright is an open-source library for automating web browsers. It allows developers to write scripts in multiple languages, including Python, that can interact with web pages in a similar way as a human. On the security side, Playwright can be used to run a series of actions inside a Software as a Service (SaaS) provider to test if any defenses notice odd or suspicious behaviors. 
+
+GitHub is a popular SaaS tool for software engineers to store and collaborate on code. If tampered with - code repositories being deleted, an insider threat cloning all company code, access keys being created on the side - GitHub can cause an organization headaches.
 
 Example output:
 ```
 [+] Playwright installed: Version 1.29.1
 ```
 
-```
-[+] Playwright is not installed: exec: "playwright": executable file not found in %PATH%
-```
+This test should run normally but you should validate your detection rules observed the performed actions.
 
 ## How
 
-> Safety: the test does not drop a malicious file and the actions taken within GitHub have been selected with safety in mind.
+> Safety: only white-glove, non-destructive actions are run inside GitHub
 
-This test first checks if Playwright is installed and if it is it will drop a Playwright python script called test.py to disk and then executes it. A Chromium browser will then launch and the GitHub actions are executed automatically with no user interaction. After our Playwright script is executed it will attempt to log-in using the `GITHUB_USERNAME` and `GITHUB_PASSWORD` environment variables which must be set correctly before execution. Once log in is successful a new randomly generated repository is created. From the newly created repo a new file called `Hello_World.py` is created which contains code to print `hello world`. Next on the list of actions is issue submission this test will create and submit a new issue to the repository titled `Add goodbye to script` with a comment suggestion. For the last GitHub action, the script will navigate to Branches in GitHub settings and then attempt to add a new branch protection rule which locks the `main` branch.
+This test first checks if Playwright is installed, and if it is, drops a Playwright script called test.py to disk and executes it. A Chromium browser will then launch and the script continues with no user interaction. It will attempt to log in using the ``GITHUB_USERNAME`` and ``GITHUB_PASSWORD`` environment variables, which must be set before execution. Once logged in, a new repository is created and is immediately populated with a source code file. Next, the test creates a new issue with the title "Add goodbye to script". Finally, the test navigates to the repo settings and adds a new branch protection rule to lock the ``main`` branch.
