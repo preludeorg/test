@@ -80,12 +80,12 @@ func Quarantined(path string, contents []byte) bool {
 	return false
 }
 
-func Remove(path string) int {
+func Remove(path string) bool {
 	e := os.Remove(path)
 	if e != nil {
-		return 103
+		return false
 	}
-	return 100
+	return true
 }
 
 func DialTCP(address string, message string) int {
