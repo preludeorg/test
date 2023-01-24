@@ -26,8 +26,10 @@ func test() {
 
 func clean() {
 	println("[+] Ensuring malicious file is no longer present")
-	status := Endpoint.Remove("malicious.xlsm")
-	Endpoint.Stop(status)
+	if Endpoint.Remove("malicious.xlsm") {
+		Endpoint.Stop(101)
+	}
+	Endpoint.Stop(105)
 }
 
 func main() {
