@@ -31,10 +31,12 @@ println("[-] Malicious file was not caught")
 Endpoint.Stop(101)
 ```
 
-Finally, the clean function ensures the malicious .xlsm file is removed from the disk, exiting with either a 100 (good/expected) or 103 (bad/cleanup failure) status:
+Finally, the clean function ensures the malicious .xlsm file is removed from the disk, exiting with either a 100 (good/expected) or 105 (file was already removed) status:
 ```go
-status := Endpoint.Remove("malicious.xlsm")
-Endpoint.Stop(status)
+if Endpoint.Remove("malicious.xlsm") {
+    Endpoint.Stop(100)
+}
+Endpoint.Stop(105)
 ```
 
 ## Quick start
