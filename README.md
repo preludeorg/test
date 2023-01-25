@@ -25,7 +25,7 @@ During the test it runs the ``Quarantined`` check, which writes the file to disk
 ```go
 if Endpoint.Quarantined("malicious.xlsm", malicious) {
 	println("[+] Malicious file was caught!")
-	Endpoint.Stop(100)
+	Endpoint.Stop(105)
 }
 println("[-] Malicious file was not caught")
 Endpoint.Stop(101)
