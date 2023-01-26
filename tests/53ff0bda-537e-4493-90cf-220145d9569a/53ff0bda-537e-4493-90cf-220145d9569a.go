@@ -6,7 +6,6 @@ CREATED: 2023-01-06 10:54:04.264000
 package main
 
 import (
-	"fmt"
 	"github.com/preludeorg/test/endpoint"
 	"runtime"
 )
@@ -14,16 +13,23 @@ import (
 func test() {
 	if runtime.GOOS == "windows" {
 		encoded := "dwBoAG8AYQBtAGkA"
-		task := fmt.Sprintf("powershell.exe -e %s", encoded)
-		stdout := Endpoint.Run(task)
+		exitCode, stdout, stderr := Endpoint.Run("powershell.exe", []string{"-e", encoded})
+		if exitCode != 0 {
+			println(stderr)
+			Endpoint.Stop(1)
+		}
 		println(stdout)
 	} else {
 		encoded := "d2hvYW1p"
-		task := fmt.Sprintf("base64 -d <<< %s | bash", encoded)
-		stdout := Endpoint.Run(task)
+		cmd := "base64 -d <<< " + encoded + " | bash"
+		exitCode, stdout, stderr := Endpoint.Run("bash", []string{"-c", cmd})
+		if exitCode != 0 {
+			println(stderr)
+			Endpoint.Stop(1)
+		}
 		println(stdout)
 	}
-	Endpoint.Stop(101)
+	Endpoint.Stop(100)
 }
 
 func clean() {
