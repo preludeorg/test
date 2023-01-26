@@ -40,14 +40,14 @@ func test() {
 	exitCode, stdout, stderr := Endpoint.Run(executor(), command1())
 	if exitCode != 0 {
 		println(stderr)
-		Endpoint.Stop(exitCode)
+		Endpoint.Stop(1)
 	}
 	println(stdout)
 
 	exitCode2, stdout2, stderr2 := Endpoint.Run(executor(), command2(stdout))
 	if exitCode2 != 0 {
 		println(stderr2)
-		Endpoint.Stop(exitCode)
+		Endpoint.Stop(1)
 	}
 	println(stdout2)
 	Endpoint.Stop(100)

@@ -31,10 +31,10 @@ func test() {
 	exitCode, stdout, stderr := Endpoint.Run(command, args)
 	if exitCode != 0 {
 		println(stderr)
-		Endpoint.Stop(exitCode)
+		Endpoint.Stop(1)
 	}
 	println(stdout)
-	Endpoint.Stop(exitCode)
+	Endpoint.Stop(100)
 }
 
 func clean() {
