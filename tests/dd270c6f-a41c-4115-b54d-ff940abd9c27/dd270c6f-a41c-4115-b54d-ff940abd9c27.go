@@ -6,22 +6,32 @@ CREATED: 2023-01-21
 package main
 
 import (
-	"github.com/preludeorg/test/endpoint"
+	Endpoint "github.com/preludeorg/test/endpoint"
 	"runtime"
 )
 
-func command() string {
+func command() (string, []string) {
+	var command string
+	var args []string
 	if runtime.GOOS == "windows" {
-		return "Invoke-RestMethod -UseBasicParsing -Uri ('http://ipinfo.io/'+ (Invoke-WebRequest -UseBasicParsing -uri 'http://ifconfig.me/ip').Content)"
+		command = "powershell.exe"
+		args = []string{"Invoke-RestMethod -UseBasicParsing -Uri ('http://ipinfo.io/'+ (Invoke-WebRequest -UseBasicParsing -uri 'http://ifconfig.me/ip').Content)"}
 	} else {
-		return "wget -qO- http://ifconfig.me/ip | wget -qO- http://ipinfo.io/$1"
+		command = "bash"
+		args = []string{"-c", "wget -qO- http://ifconfig.me/ip | wget -qO- http://ipinfo.io/$1"}
 	}
+	return command, args
 }
 
 func test() {
-	response := Endpoint.Run(command())
-	print(response)
-	Endpoint.Stop(101)
+	command, args := command()
+	exitCode, stdout, stderr := Endpoint.Run(command, args)
+	if exitCode != 0 {
+		println(stderr)
+		Endpoint.Stop(exitCode)
+	}
+	println(stdout)
+	Endpoint.Stop(exitCode)
 }
 
 func clean() {
