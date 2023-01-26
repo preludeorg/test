@@ -16,6 +16,9 @@ func command() (string, []string) {
 	if runtime.GOOS == "windows" {
 		command = "powershell.exe"
 		args = []string{"Invoke-RestMethod -UseBasicParsing -Uri ('http://ipinfo.io/'+ (Invoke-WebRequest -UseBasicParsing -uri 'http://ifconfig.me/ip').Content)"}
+	} else if runtime.GOOS == "darwin" {
+		command = "bash"
+		args = []string{"-c", "curl -s http://ipinfo.io/$(curl -s http://ifconfig.me/ip)"}
 	} else {
 		command = "bash"
 		args = []string{"-c", "wget -qO- http://ifconfig.me/ip | wget -qO- http://ipinfo.io/$1"}
