@@ -32,7 +32,7 @@ func command2(stdout string) []string {
 	if runtime.GOOS == "windows" {
 		return []string{"Get-ChildItem C:/ -File -Recurse | Select-String -List -Pattern '^P.{20}$' | Select-Object -ExpandProperty Path"}
 	} else {
-		return []string{"-c", "cat << EOF | awk '$1 ~ /^P.{20}$/ {print}'\n" + stdout + "\nEOF"}
+		return []string{"-c", "grep -rqE ^P.{20}$ ~ 2>/dev/null"}
 	}
 }
 
