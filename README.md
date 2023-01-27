@@ -21,7 +21,7 @@ It does this by first embedding a malicious .xlsm file into the test:
 var malicious []byte
 ```
 
-During the test it runs the ``Quarantined`` check, which writes the file to disk, waits 2s, and evaluates if the file was removed. If the check returns true the test exists with a 100 (good/expected) otherwise it exits with a 101 (bad/unexpected).
+During the test it runs the ``Quarantined`` check, which writes the file to disk, waits 2s, and evaluates if the file was removed. If the check returns true the test exists with a 105 (good/quarantined) otherwise it exits with a 101 (bad/unexpected).
 ```go
 if Endpoint.Quarantined("malicious.xlsm", malicious) {
 	println("[+] Malicious file was caught!")
