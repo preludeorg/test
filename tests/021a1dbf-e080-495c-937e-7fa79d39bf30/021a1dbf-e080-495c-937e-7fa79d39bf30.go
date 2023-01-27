@@ -29,7 +29,7 @@ func command1() []string {
 	}
 }
 
-func command2(stdout string) []string {
+func command2() []string {
 	if runtime.GOOS == "windows" {
 		return []string{"Get-ChildItem  %userprofile%  -File -Recurse | Select-String -List -Pattern '^P.{20}$' | Select-Object -ExpandProperty Path"}
 	} else {
@@ -45,7 +45,7 @@ func test() {
 	}
 	println(stdout)
 
-	exitCode2, stdout2, stderr2 := Endpoint.Run(executor(), command2(stdout))
+	exitCode2, stdout2, stderr2 := Endpoint.Run(executor(), command2())
 	if exitCode2 != 0 {
 		println(stderr2)
 		Endpoint.Stop(1)
