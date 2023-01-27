@@ -6,23 +6,31 @@ CREATED: 2023-01-06 10:54:04.264000
 package main
 
 import (
-	"github.com/preludeorg/test/endpoint"
 	"runtime"
+	"strings"
+
+	Endpoint "github.com/preludeorg/test/endpoint"
 )
 
 func test() {
 	if runtime.GOOS == "windows" {
-		encoded := "dwBoAG8AYQBtAGkA"
+		encoded := "ZQBjAGgAbwAgAC0AbgAgAFAAcgBlAGwAdQBkAGUA"
 		exitCode, stdout, stderr := Endpoint.Run("powershell.exe", []string{"-e", encoded})
+		if strings.Contains(stdout, "Prelude") {
+			Endpoint.Stop(101)
+		}
 		if exitCode != 0 {
 			println(stderr)
 			Endpoint.Stop(1)
 		}
 		println(stdout)
 	} else {
-		encoded := "d2hvYW1p"
+		encoded := "ZWNobyAtbiBQcmVsdWRl"
 		cmd := "base64 -d <<< " + encoded + " | bash"
 		exitCode, stdout, stderr := Endpoint.Run("bash", []string{"-c", cmd})
+		if strings.Contains(stdout, "Prelude") {
+			Endpoint.Stop(101)
+		}
 		if exitCode != 0 {
 			println(stderr)
 			Endpoint.Stop(1)
