@@ -19,11 +19,6 @@ import (
 )
 
 func test() {
-	if runtime.GOOS != "windows" {
-		println("This is a Windows-only test")
-		Endpoint.Stop(104) // The test is not relevant to the endpoint
-	}
-
 	exit := 101
 	errors := 0
 	applications := [3]string{"Word", "Excel", "PowerPoint"}
@@ -34,7 +29,7 @@ func test() {
 		if err.Error() == "The system cannot find the file specified." {
 			println("Office is not installed.")
 			k.Close()
-			Endpoint.Stop(exit)
+			Endpoint.Stop(104)
 		} else {
 			println("Error opening registry key: HKCU\\" + office_path)
 			println(err.Error())
