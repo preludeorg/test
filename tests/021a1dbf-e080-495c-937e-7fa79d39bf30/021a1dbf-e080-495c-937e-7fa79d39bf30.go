@@ -6,8 +6,9 @@ CREATED: 2023-01-21
 package main
 
 import (
-	Endpoint "github.com/preludeorg/test/endpoint"
 	"runtime"
+
+	Endpoint "github.com/preludeorg/test/endpoint"
 )
 
 func executor() string {
@@ -30,7 +31,7 @@ func command1() []string {
 
 func command2(stdout string) []string {
 	if runtime.GOOS == "windows" {
-		return []string{"Get-ChildItem C:/ -File -Recurse | Select-String -List -Pattern '^P.{20}$' | Select-Object -ExpandProperty Path"}
+		return []string{"Get-ChildItem  %userprofile%  -File -Recurse | Select-String -List -Pattern '^P.{20}$' | Select-Object -ExpandProperty Path"}
 	} else {
 		return []string{"-c", "grep -rqE ^P.{20}$ ~ 2>/dev/null"}
 	}
