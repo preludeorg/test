@@ -1,4 +1,4 @@
-# Can an unsigned app serve a port on localhost?
+# Can an unsigned app serve a port?
 
 When an endpoint serves a port, it is signaling its readiness to start accepting traffic. This traffic could come from another process on the device or from a different computer across a network. Served ports should be known and monitored. A common tactic by adversaries is to serve a port and start directing command-and-control activities through it. It is normal for an application to serve ports on localhost - especially if a server - but the defense can ensure that only signed applications are allowed to do it.
 
