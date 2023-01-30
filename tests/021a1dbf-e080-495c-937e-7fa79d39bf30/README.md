@@ -1,4 +1,4 @@
-# What is the password policy?
+# What is my password?
 
 > Modeled after Operator TTP #e82f39e2-56f8-4f19-8376-b007f9ac5f8a
 
