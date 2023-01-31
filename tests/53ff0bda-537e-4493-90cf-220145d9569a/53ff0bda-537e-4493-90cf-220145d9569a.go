@@ -6,8 +6,10 @@ CREATED: 2023-01-06 10:54:04.264000
 package main
 
 import (
-	"github.com/preludeorg/test/endpoint"
 	"runtime"
+	"strings"
+
+	Endpoint "github.com/preludeorg/test/endpoint"
 )
 
 var supported = map[string][]string{
@@ -22,6 +24,8 @@ func test() {
 	if strings.Contains(result, "Prelude") {
 		println(result)
 		Endpoint.Stop(101)
+	} else {
+		Endpoint.Stop(100)
 	}
 }
 
