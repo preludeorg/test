@@ -1,4 +1,4 @@
-# What is my IP address?
+# What is my physical location?
 
 > Modeled after Operator TTP #4d2c97ed-5464-4a27-9cc4-f76237526aea
 
