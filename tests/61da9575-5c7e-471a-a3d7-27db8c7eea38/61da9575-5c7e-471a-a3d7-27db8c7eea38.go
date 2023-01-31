@@ -69,8 +69,10 @@ func test() {
 }
 
 func clean() {
-	exitCode := Endpoint.Remove(scriptPath)
-	Endpoint.Stop(exitCode)
+	if Endpoint.Remove(scriptPath) {
+		Endpoint.Stop(100)
+	}
+	Endpoint.Stop(103)
 }
 
 func main() {
