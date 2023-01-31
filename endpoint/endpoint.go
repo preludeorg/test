@@ -86,13 +86,7 @@ func Remove(path string) bool {
 
 func DialTCP(address string, message string) int {
 	println("[+] Connection opening to", address)
-	tcpAddr, err := net.ResolveTCPAddr("tcp", address)
-	if err != nil {
-		println("[-] Failed to resolve:", err.Error())
-		return 1
-	}
-
-	conn, err := net.DialTCP("tcp", nil, tcpAddr)
+	conn, err := net.DialTimeout("tcp", address, 5*time.Second)
 	if err != nil {
 		println("[-] Connection failure:", err.Error())
 		return 1
