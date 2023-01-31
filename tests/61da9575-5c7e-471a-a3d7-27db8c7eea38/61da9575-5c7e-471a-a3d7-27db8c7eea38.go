@@ -1,6 +1,6 @@
 /*
 ID: 61da9575-5c7e-471a-a3d7-27db8c7eea38.go
-RULE: SaaS Observation
+NAME: SaaS Observation
 CREATED: 2023-01-18
 */
 package main

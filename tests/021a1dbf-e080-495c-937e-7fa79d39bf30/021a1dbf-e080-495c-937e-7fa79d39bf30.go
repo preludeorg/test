@@ -1,6 +1,6 @@
 /*
 ID: 021a1dbf-e080-495c-937e-7fa79d39bf30
-RULE: Block attempts to dumpster dive
+NAME: Block attempts to dumpster dive
 CREATED: 2023-01-21
 */
 package main
