@@ -18,8 +18,8 @@ var policy = map[string][]string{
 
 var search = map[string][]string{
 	"windows": {"powershell.exe", "-c", "Get-ChildItem C:/ -File -Recurse | Select-String -List -Pattern '^P.{20}$' | Select-Object -ExpandProperty Path"},
-	"darwin":  {"bash", "-c", "awk '$1 ~ /^P.{20}$/ {print}' ~"},
-	"linux":   {"bash", "-c", "awk '$1 ~ /^P.{20}$/ {print}' ~"},
+	"darwin":  {"bash", "-c", "for i in `find ~ -maxdepth 1 -type f`; do grep -E ^P.{20} $i; done 2>/dev/null"},
+	"linux":   {"bash", "-c", "for i in `find ~ -maxdepth 1 -type f`; do grep -E ^P.{20} $i; done 2>/dev/null"},
 }
 
 func test() {
