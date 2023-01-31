@@ -6,23 +6,20 @@ CREATED: 2023-01-06 10:54:04.264000
 package main
 
 import (
-	"fmt"
 	"github.com/preludeorg/test/endpoint"
 	"runtime"
 )
 
+var supported = map[string][]string{
+	"windows": {"powershell.exe", "-e", "dwBoAG8AYQBtAGkA"},
+	"darwin":  {"bash", "-c", "base64 -d <<< d2hvYW1p | bash"},
+	"linux":   {"bash", "-c", "base64 -d <<< d2hvYW1p | bash"},
+}
+
 func test() {
-	if runtime.GOOS == "windows" {
-		encoded := "dwBoAG8AYQBtAGkA"
-		task := fmt.Sprintf("powershell.exe -e %s", encoded)
-		stdout := Endpoint.Run(task)
-		println(stdout)
-	} else {
-		encoded := "d2hvYW1p"
-		task := fmt.Sprintf("base64 -d <<< %s | bash", encoded)
-		stdout := Endpoint.Run(task)
-		println(stdout)
-	}
+	command := supported[runtime.GOOS]
+	result := Endpoint.Shell(command)
+	println(result)
 	Endpoint.Stop(101)
 }
 

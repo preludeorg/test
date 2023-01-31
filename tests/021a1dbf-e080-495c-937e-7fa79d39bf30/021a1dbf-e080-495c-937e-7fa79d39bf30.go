@@ -10,30 +10,24 @@ import (
 	"runtime"
 )
 
-func command1() string {
-	if runtime.GOOS == "windows" {
-		return "(([xml](Get-GPOReport -Name 'Default Domain Policy' -ReportType Xml)).GPO.Computer.ExtensionData.Extension.Account)| Select-Object Name, SettingNumber"
-	} else if runtime.GOOS == "darwin" {
-		return "pwpolicy getaccountpolicies"
-	} else {
-		return "cat /etc/pam.d/common-password"
-	}
+var policy = map[string][]string{
+	"windows": {"powershell.exe", "-c", "(([xml](Get-GPOReport -Name 'Default Domain Policy' -ReportType Xml)).GPO.Computer.ExtensionData.Extension.Account)| Select-Object Name, SettingNumber"},
+	"darwin":  {"bash", "-c", "pwpolicy getaccountpolicies"},
+	"linux":   {"bash", "-c", "cat /etc/pam.d/common-password"},
 }
 
-func command2() string {
-	if runtime.GOOS == "windows" {
-		return "Get-ChildItem C:/ -File -Recurse | Select-String -List -Pattern '^P.{20}$' | Select-Object -ExpandProperty Path"
-	} else {
-		return "awk '$1 ~ /^P.{20}$/ {print}' ~"
-	}
+var search = map[string][]string{
+	"windows": {"powershell.exe", "-c", "Get-ChildItem C:/ -File -Recurse | Select-String -List -Pattern '^P.{20}$' | Select-Object -ExpandProperty Path"},
+	"darwin":  {"bash", "-c", "awk '$1 ~ /^P.{20}$/ {print}' ~"},
+	"linux":   {"bash", "-c", "awk '$1 ~ /^P.{20}$/ {print}' ~"},
 }
 
 func test() {
-	response1 := Endpoint.Run(command1())
-	print(response1)
-	if len(response1) > 0 {
-		response2 := Endpoint.Run(command2())
-		print(response2)
+	passwordPolicy := Endpoint.Shell(policy[runtime.GOOS])
+	print(passwordPolicy)
+	if len(passwordPolicy) > 0 {
+		passwords := Endpoint.Shell(search[runtime.GOOS])
+		print(passwords)
 	}
 	Endpoint.Stop(101)
 }

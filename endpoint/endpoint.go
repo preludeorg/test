@@ -7,7 +7,6 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-	"runtime"
 	"time"
 )
 
@@ -135,23 +134,17 @@ func Serve(address string, protocol string) {
 	conn.Close()
 }
 
-func Run(command string) string {
-	if runtime.GOOS == "windows" {
-		cmd := exec.Command("cmd.exe", "/C", command)
-		stdout, err := cmd.Output()
-		if err != nil {
+func Shell(args []string) string {
+	cmd := exec.Command(args[0], args[1:]...)
+	stdout, err := cmd.Output()
+	if err != nil {
+		if exitError, ok := err.(*exec.ExitError); ok {
+			println(string(exitError.Stderr))
+			os.Exit(exitError.ExitCode())
+		} else {
 			println(err.Error())
 			os.Exit(1)
 		}
-		return string(stdout)
-
-	} else {
-		cmd := exec.Command("bash", "-c", command)
-		stdout, err := cmd.Output()
-		if err != nil {
-			println(err.Error())
-			os.Exit(1)
-		}
-		return string(stdout)
 	}
+	return string(stdout)
 }

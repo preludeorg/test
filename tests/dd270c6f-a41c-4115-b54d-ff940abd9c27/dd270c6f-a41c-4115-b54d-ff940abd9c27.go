@@ -10,16 +10,15 @@ import (
 	"runtime"
 )
 
-func command() string {
-	if runtime.GOOS == "windows" {
-		return "Invoke-RestMethod -UseBasicParsing -Uri ('http://ipinfo.io/'+ (Invoke-WebRequest -UseBasicParsing -uri 'http://ifconfig.me/ip').Content)"
-	} else {
-		return "wget -qO- http://ifconfig.me/ip | wget -qO- http://ipinfo.io/$1"
-	}
+var supported = map[string][]string{
+	"windows": {"powershell.exe", "-c", "Invoke-RestMethod -UseBasicParsing -Uri ('http://ipinfo.io/'+ (Invoke-WebRequest -UseBasicParsing -uri 'http://ifconfig.me/ip').Content)"},
+	"darwin":  {"bash", "-c", "wget -qO- http://ifconfig.me/ip | wget -qO- http://ipinfo.io/$1"},
+	"linux":   {"bash", "-c", "wget -qO- http://ifconfig.me/ip | wget -qO- http://ipinfo.io/$1"},
 }
 
 func test() {
-	response := Endpoint.Run(command())
+	command := supported[runtime.GOOS]
+	response := Endpoint.Shell(command)
 	print(response)
 	Endpoint.Stop(101)
 }
