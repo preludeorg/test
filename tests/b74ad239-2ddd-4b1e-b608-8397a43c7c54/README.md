@@ -10,7 +10,7 @@ but an endpoint should never let it get that far.
 Example output:
 ```
 [+] Extracting file for quarantine test
-[+] Pausing for 2 seconds to gauge defensive reaction
+[+] Pausing for 1 second to gauge defensive reaction
 [-] Malicious file was not caught
 ```
 

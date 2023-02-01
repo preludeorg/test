@@ -15,7 +15,7 @@ var malicious []byte
 
 func test() {
 	println("[+] Extracting file for quarantine test")
-	println("[+] Pausing for 2 seconds to gauge defensive reaction")
+	println("[+] Pausing for 1 second to gauge defensive reaction")
 	if Endpoint.Quarantined("malicious.xlsm", malicious) {
 		println("[+] Malicious file was caught!")
 		Endpoint.Stop(105)
