@@ -21,8 +21,9 @@ func test() {
 		if code == 0 {
 			println("[+] Message sent successfully to ", ip)
 			exit = 101
+		} else {
+			println("[-] Failed to send message to ", ip)
 		}
-		println("[-] Failed to send message to ", ip)
 	}
 	Endpoint.Stop(exit)
 }
