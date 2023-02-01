@@ -84,7 +84,7 @@ func Remove(path string) bool {
 	return e == nil
 }
 
-func DialTCP(address string, message string) int {
+func NetworkTest(address string, message string) int {
 	println("[+] Connection opening to", address)
 	conn, err := net.DialTimeout("tcp", address, 5*time.Second)
 	if err != nil {
@@ -95,7 +95,7 @@ func DialTCP(address string, message string) int {
 	_, err = conn.Write([]byte(message))
 	if err != nil {
 		println("[-] Write to server failed:", err.Error())
-		return 1
+		return 2
 	}
 
 	conn.Close()

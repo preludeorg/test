@@ -10,20 +10,21 @@ import (
 )
 
 var ips = []string{
-	"77.88.55.80:443", // https://yandex.com
+	"77.88.55.80:443",   // https://yandex.com
 	"104.193.88.77:443", // https://www.baidu.cn
 }
 
 func test() {
+	exit := 106
 	for _, ip := range ips {
-		code := Endpoint.DialTCP(ip, "hello world")
+		code := Endpoint.NetworkTest(ip, "hello world")
 		if code == 0 {
-			println("[+] Message sent successfully to", ip)
-			continue
+			println("[+] Message sent successfully to ", ip)
+			exit = 101
 		}
-		println("[-] Failed to send message to", ip)
+		println("[-] Failed to send message to ", ip)
 	}
-	Endpoint.Stop(106)
+	Endpoint.Stop(exit)
 }
 
 func clean() {
@@ -33,4 +34,3 @@ func clean() {
 func main() {
 	Endpoint.Start(test, clean)
 }
-
