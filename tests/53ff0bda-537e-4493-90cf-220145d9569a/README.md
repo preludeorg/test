@@ -15,4 +15,4 @@ Any script that attempts to execute an encoded string should be blocked.
 
 > Safety: the encoded string is a non-intrusive command
 
-This test decodes the string "Prelude" in memory and executes it in a single action. If the string is found and the test is allowed to finish, it is considered a failure (of the defense), otherwise if it is blocked, it is considered a success.
+This test decodes the string "echo -n Prelude" in memory and executes it in a single action. If the string is found and the test is allowed to finish, it is considered a failure (of the defense), otherwise if it is blocked, it is considered a success.
