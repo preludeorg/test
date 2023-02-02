@@ -24,9 +24,8 @@ func test() {
 	if strings.Contains(result, "Prelude") {
 		println(result)
 		Endpoint.Stop(101)
-	} else {
-		Endpoint.Stop(100)
-	}
+	} 
+	Endpoint.Stop(100)
 }
 
 func clean() {
