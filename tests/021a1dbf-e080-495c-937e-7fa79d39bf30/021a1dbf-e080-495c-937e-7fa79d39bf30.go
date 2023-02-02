@@ -6,20 +6,21 @@ CREATED: 2023-01-21
 package main
 
 import (
-	"github.com/preludeorg/test/endpoint"
 	"runtime"
+
+	Endpoint "github.com/preludeorg/test/endpoint"
 )
 
 var policy = map[string][]string{
-	"windows": {"powershell.exe", "-c", "(([xml](Get-GPOReport -Name 'Default Domain Policy' -ReportType Xml)).GPO.Computer.ExtensionData.Extension.Account)| Select-Object Name, SettingNumber"},
+	"windows": {"powershell.exe", "-c", "net accounts"},
 	"darwin":  {"bash", "-c", "pwpolicy getaccountpolicies"},
 	"linux":   {"bash", "-c", "cat /etc/pam.d/common-password"},
 }
 
 var search = map[string][]string{
-	"windows": {"powershell.exe", "-c", "Get-ChildItem C:/ -File -Recurse | Select-String -List -Pattern '^P.{20}$' | Select-Object -ExpandProperty Path"},
-	"darwin":  {"bash", "-c", "for i in `find ~ -maxdepth 1 -type f`; do grep -E ^P.{20} $i; done 2>/dev/null"},
-	"linux":   {"bash", "-c", "for i in `find ~ -maxdepth 1 -type f`; do grep -E ^P.{20} $i; done 2>/dev/null"},
+	"windows": {"powershell.exe", "-c", "Get-ChildItem %userprofile% -File -Recurse | Select-String -List -Pattern '^P.{20}$' | Select-Object -ExpandProperty Path"},
+	"darwin":  {"bash", "-c", "find ~ -maxdepth 1 -type f -exec grep -E ^P.{20} {} \\;"},
+	"linux":   {"bash", "-c", "find ~ -maxdepth 1 -type f -exec grep -E ^P.{20} {} \\;"},
 }
 
 func test() {
