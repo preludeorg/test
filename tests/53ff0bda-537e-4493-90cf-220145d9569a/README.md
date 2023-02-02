@@ -4,7 +4,9 @@ EDR products monitor every command run on an endpoint. As known bad commands are
 
 Example output: 
 ```
-ec2-user
+[+] Starting test
+Prelude
+[+] Completed with code: 101
 ```
 
 Any script that attempts to execute an encoded string should be blocked.
@@ -13,4 +15,4 @@ Any script that attempts to execute an encoded string should be blocked.
 
 > Safety: the encoded string is a non-intrusive command
 
-This test decodes the string "whoami" in memory and executes it in a single action. If the test is allowed to finish, it is considered a failure (of the defense), otherwise if it is blocked, it is considered a success.
+This test decodes the string "echo -n Prelude" in memory and executes it in a single action. If the string is found and the test is allowed to finish, it is considered a failure (of the defense), otherwise if it is blocked, it is considered a success.
