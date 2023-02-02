@@ -7,6 +7,10 @@ Example output:
 [+] Starting test
 [+] Connection opening to 77.88.55.80:443
 [+] Client connection closing
+[+] Message sent successfully to  77.88.55.80:443
+[+] Connection opening to 104.193.88.77:443
+[+] Client connection closing
+[+] Message sent successfully to  104.193.88.77:443
 [+] Completed with code: 101
 ```
 
@@ -16,4 +20,4 @@ Attempts to write data over the network to specific countries should be blocked.
 
 > Safety: only the string "hello" is sent over the network
 
-This test opens a connection to https://yandex.com, a Russian search engine, and writes the byte stream "hello". The connection is done through a raw TCP socket (write) directly against a Yandex IP address, bypassing any DNS resolution that may occur otherwise. If the write is allowed to complete and the connection is closed properly, the test is marked failed.
+This test opens a connection to https://yandex.com and https://www.baidu.cn, which are Russian and Chinese search engines, and writes the byte stream "hello". The connection is done through a raw TCP socket (write) directly against both IP address, bypassing any DNS resolution that may occur otherwise. If the write is allowed to complete and the connection is closed properly, the test is marked failed. Some assumptions are made with this test such as the search engines being online and reasonable latency with the connection attempts.
