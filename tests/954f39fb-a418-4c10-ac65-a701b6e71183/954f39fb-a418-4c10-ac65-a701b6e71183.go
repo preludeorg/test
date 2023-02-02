@@ -14,7 +14,7 @@ func test() {
 	go Endpoint.Serve("localhost:8888", "tcp")
 	time.Sleep(1 * time.Second)
 
-	code := Endpoint.DialTCP("localhost:8888", "hello")
+	code := Endpoint.NetworkTest("localhost:8888", "hello")
 	if code == 0 {
 		Endpoint.Stop(101)
 	}
