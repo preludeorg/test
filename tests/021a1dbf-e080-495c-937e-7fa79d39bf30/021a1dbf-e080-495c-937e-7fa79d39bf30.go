@@ -14,7 +14,7 @@ import (
 var policy = map[string][]string{
 	"windows": {"powershell.exe", "-c", "net accounts"},
 	"darwin":  {"bash", "-c", "pwpolicy getaccountpolicies"},
-	"linux":   {"bash", "-c", "cat /etc/pam.d/common-password"},
+	"linux":   {"bash", "-c", "grep \"=\" /etc/security/pwquality.conf"},
 }
 
 var search = map[string][]string{
