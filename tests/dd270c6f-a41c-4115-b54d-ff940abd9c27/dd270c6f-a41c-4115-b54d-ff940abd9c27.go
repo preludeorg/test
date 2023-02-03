@@ -1,6 +1,6 @@
 /*
 ID: dd270c6f-a41c-4115-b54d-ff940abd9c27
-NAME: Protect user privacy
+NAME: What is my IP address?
 CREATED: 2023-01-21
 */
 package main

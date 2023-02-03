@@ -1,6 +1,6 @@
 /*
 ID: d769fb8c-2cf9-4c10-b5ef-7035468b6ffd
-NAME: Enforce an outbound firewall
+NAME: Attempt to write data to a foreign country
 CREATED: 2023-01-31 07:59:52.294747
 */
 package main

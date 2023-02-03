@@ -1,6 +1,6 @@
 /*
 ID: db201110-d875-4133-9709-2732a47f252f
-NAME: Block ransomware attacks
+NAME: Can you stop a common ransomware attempt?
 CREATED: 2023-01-03
 */
 package main

@@ -1,6 +1,6 @@
 /*
 ID: 954f39fb-a418-4c10-ac65-a701b6e71183
-NAME: Block server capabilities
+NAME: Can an unsigned app serve a port?
 CREATED: 2023-01-03
 */
 package main

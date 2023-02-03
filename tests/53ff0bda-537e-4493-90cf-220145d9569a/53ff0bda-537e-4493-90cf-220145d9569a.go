@@ -1,6 +1,6 @@
 /*
 ID: 53ff0bda-537e-4493-90cf-220145d9569a
-NAME: Block obfuscated behaviors
+NAME: Can a base64 encoded script be run?
 CREATED: 2023-01-06 10:54:04.264000
 */
 package main
