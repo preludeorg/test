@@ -1,6 +1,6 @@
 # Verified Security Tests
 
-A [VST](https://docs.preludesecurity.com/docs/tests) is a production ready TTP. Tests from this repository are automatically loaded into [Build](https://platform.preludesecurity.com). You can run these tests on endpoints by using [Detect](https://docs.preludesecurity.com/docs/detect-getting-started).
+A [VST](https://docs.preludesecurity.com/docs/tests) is a production ready TTP. Tests from this repository are automatically loaded into [Detect](https://platform.preludesecurity.com) and can be run immediately on any endpoint.
 
 ## What is production ready?
 
