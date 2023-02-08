@@ -51,9 +51,15 @@ func test() {
 	println("[*] Targeting user: " + usr.Username)
 
 	println("[*] Generating sample files...")
-	Endpoint.Write(filepath.Join(usr.HomeDir, "one.txt"), make([]byte, 1000))
-	Endpoint.Write(filepath.Join(usr.HomeDir, "two.xlsx"), make([]byte, 7500000))
-	Endpoint.Write(filepath.Join(usr.HomeDir, "three.pdf"), make([]byte, 5500))
+	if Endpoint.Write(filepath.Join(usr.HomeDir, "one.txt"), make([]byte, 1000)) != true {
+		Endpoint.Stop(write_fail_code)
+	}
+	if Endpoint.Write(filepath.Join(usr.HomeDir, "two.xlsx"), make([]byte, 7500000)) != true {
+		Endpoint.Stop(write_fail_code)
+	}
+	if Endpoint.Write(filepath.Join(usr.HomeDir, "three.pdf"), make([]byte, 5500)) != true {
+		Endpoint.Stop(write_fail_code)
+	}
 
 	key, err := GenerateKey()
 	if err != nil {
@@ -72,7 +78,9 @@ func test() {
 			println(err)
 		}
 
-		Endpoint.Write(filepath.Join(usr.HomeDir, name), encryptBytes)
+		if Endpoint.Write(filepath.Join(usr.HomeDir, name), encryptBytes) != true {
+			Endpoint.Stop(write_fail_code)
+		}
 	}
 
 	Endpoint.Stop(101)

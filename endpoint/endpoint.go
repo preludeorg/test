@@ -51,11 +51,13 @@ func Read(path string) []byte {
 	return bit
 }
 
-func Write(path string, contents []byte) {
+func Write(path string, contents []byte) bool {
 	err := os.WriteFile(path, contents, 0644)
 	if err != nil {
 		println("[-] Failed to write " + path)
+		return false
 	}
+	return true
 }
 
 func Exists(path string) bool {

@@ -7,10 +7,11 @@ package main
 
 import (
 	_ "embed"
-	Endpoint "github.com/preludeorg/test/endpoint"
 	"os"
 	"os/exec"
 	"runtime"
+
+	Endpoint "github.com/preludeorg/test/endpoint"
 )
 
 //go:embed test.py
@@ -54,7 +55,9 @@ func test() {
 	os.Setenv("GITHUB_USERNAME", "")
 	os.Setenv("GITHUB_PASSWORD", "")
 
-	Endpoint.Write(scriptPath, playwright)
+	if (Endpoint.Write(scriptPath, playwright)) != true {
+		Endpoint.Stop(write_fail_code)
+	}
 	var command string
 	if runtime.GOOS == "windows" {
 		command = "python"
