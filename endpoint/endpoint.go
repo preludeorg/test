@@ -51,13 +51,10 @@ func Read(path string) []byte {
 	return bit
 }
 
-func Write(path string, contents []byte) bool {
+func Write(path string, contents []byte) {
 	err := os.WriteFile(path, contents, 0644)
 	if err != nil {
 		println("[-] Failed to write " + path)
-		return false
-	} else {
-		return true
 	}
 }
 
@@ -70,17 +67,15 @@ func Exists(path string) bool {
 }
 
 func Quarantined(path string, contents []byte) bool {
-	if Write(path, contents) {
-		time.Sleep(1 * time.Second)
-		if Exists(path) {
-			file, err := os.Open(path)
-			if err != nil {
-				return true
-			}
-			defer file.Close()
+	Write(path, contents)
+	time.Sleep(1 * time.Second)
+	if Exists(path) {
+		file, err := os.Open(path)
+		if err != nil {
+			return true
 		}
-	} else {
-		return true
+		defer file.Close()
+		return false
 	}
 	return false
 }
