@@ -31,7 +31,7 @@ func Stop(code int) {
 func RunWithTimeout(function fn) {
     go function()
     select {
-    case <- time.After(3 * time.Second):
+    case <- time.After(10 * time.Second):
         os.Exit(102)
     }
 }
