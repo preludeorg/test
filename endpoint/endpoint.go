@@ -10,21 +10,30 @@ import (
 	"time"
 )
 
-type fn func()
+type fn func() int
 
 func Start(test fn, clean fn) {
 	args := os.Args[1:]
-	if len(args) > 0 {
-		println("[+] Starting cleanup")
-		clean()
-	} else {
-		println("[+] Starting test")
-		test()
+	ch := make(chan int)
+	go func() {
+		var code int
+		if len(args) > 0 {
+			println("[+] Starting cleanup")
+			code = clean()
+		} else {
+			println("[+] Starting test")
+			code = test()
+		}
+		println(fmt.Sprintf("[+] Completed with code: %d", code))
+		ch <- code
+	}()
+	var code int
+	select {
+	case code = <-ch:
+	case <-time.After(10 * time.Second):
+		code = 15
 	}
-}
-
-func Stop(code int) {
-	println(fmt.Sprintf("[+] Completed with code: %d", code))
+	close(ch)
 	os.Exit(code)
 }
 
