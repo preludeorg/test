@@ -16,16 +16,24 @@ func Start(test fn, clean fn) {
 	args := os.Args[1:]
 	if len(args) > 0 {
 		println("[+] Starting cleanup")
-		clean()
+		RunWithTimeout(clean)
 	} else {
 		println("[+] Starting test")
-		test()
+		RunWithTimeout(test)
 	}
 }
 
 func Stop(code int) {
 	println(fmt.Sprintf("[+] Completed with code: %d", code))
 	os.Exit(code)
+}
+
+func RunWithTimeout(function fn) {
+    go function()
+    select {
+    case <- time.After(3 * time.Second):
+        os.Exit(102)
+    }
 }
 
 func Find(ext string) []string {
