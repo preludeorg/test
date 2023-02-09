@@ -83,8 +83,9 @@ func Quarantined(path string, contents []byte) bool {
 			return true
 		}
 		defer file.Close()
+		return false
 	}
-	return false
+	return true
 }
 
 func Remove(path string) bool {
