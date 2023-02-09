@@ -95,7 +95,7 @@ func Remove(path string) bool {
 
 func NetworkTest(address string, message string) int {
 	println("[+] Connection opening to", address)
-	conn, err := net.DialTimeout("tcp", address, 5*time.Second)
+	conn, err := net.DialTimeout("tcp", address, 3*time.Second)
 	if err != nil {
 		println("[-] Connection failure:", err.Error())
 		return 1
