@@ -31,7 +31,7 @@ func Stop(code int) {
 func RunWithTimeout(function fn) {
 	go function()
 	select {
-	case <-time.After(15 * time.Second):
+	case <-time.After(10 * time.Second):
 		os.Exit(102)
 	}
 }
@@ -94,7 +94,7 @@ func Remove(path string) bool {
 
 func NetworkTest(address string, message string) int {
 	println("[+] Connection opening to", address)
-	conn, err := net.DialTimeout("tcp", address, 5*time.Second)
+	conn, err := net.DialTimeout("tcp", address, 3*time.Second)
 	if err != nil {
 		println("[-] Connection failure:", err.Error())
 		return 1
