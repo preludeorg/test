@@ -18,7 +18,7 @@ var supported = map[string][]string{
 }
 
 var cleanup = map[string][]string{
-	"windows": {"schtasks.exe", "/Delete", "/TN", "detect-task", "/F"},
+	"windows": {"powershell.exe", "-c", "schtasks.exe", "/Delete", "/TN", "detect-task", "/F"},
 	"darwin":  {"bash", "-c", "at -l | awk '/detect-task/ {print $1}' | xargs -I{} at -r {}"},
 	"linux":   {"bash", "-c", "at -l | awk '/detect-task/ {print $1}' | xargs -I{} at -r {}"},
 }
