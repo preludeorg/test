@@ -1,6 +1,6 @@
 /*
 ID: 188af3a0-5a0d-4afe-8300-6b48915edba0
-NAME: What hosts can I RDP or SSH into in my environment?
+NAME: What hosts can I remotely access in my environment?
 CREATED: 2023-02-15
 */
 package main
