@@ -12,7 +12,7 @@ import (
 )
 
 var supported = map[string][]string{
-	"windows": {"schtasks.exe", "/Create", "/TN", "detect-task", "/SC", "DAILY", "/ST", "00:00", "/TR", "cmd.exe", "/C", "echo Hello World"},
+	"windows": {"powershell.exe", "-c", "schtasks.exe", "/Create", "/TN", "detect-task", "/SC", "DAILY", "/ST", "00:00", "/TR", "cmd.exe", "/C", "echo Hello World"},
 	"darwin":  {"bash", "-c", "echo Hello World | at now + 1 minute", "detect-task"},
 	"linux":   {"bash", "-c", "echo Hello World | at now + 1 minute", "detect-task"},
 }
