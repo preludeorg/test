@@ -31,7 +31,8 @@ func test() {
 		Endpoint.Write(path, ms16032)
 	}
 	Endpoint.Shell(command)
-	Endpoint.Stop(100)
+	println("[-] Test was not caught")
+	Endpoint.Stop(101)
 }
 
 func clean() {
