@@ -149,3 +149,16 @@ func Shell(args []string) (string, error) {
 	}
 	return string(stdout), nil
 }
+
+func Installed(file string) bool {
+	pathEnv := os.Getenv("PATH")
+	pathList := filepath.SplitList(pathEnv)
+	for _, dir := range pathList {
+		filePath := filepath.Join(dir, file)
+		if _, err := os.Stat(filePath); err == nil {
+			return true
+		}
+	}
+
+	return false
+}
