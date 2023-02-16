@@ -10,7 +10,6 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
-	"strings"
 
 	Endpoint "github.com/preludeorg/test/endpoint"
 )
@@ -31,11 +30,12 @@ func test() {
 	if runtime.GOOS == "windows" {
 		Endpoint.Write(path, ms16032)
 	}
-	cmd := Endpoint.Shell(command)
-	if strings.Contains(cmd, "1") {
+	cmd, err := Endpoint.Shell(command)
+	if err != nil {
 		println("[+] The test was prevented or machine not vulnerable")
 		Endpoint.Stop(107)
 	}
+	println(cmd)
 	println("[-] Test was not prevented")
 	Endpoint.Stop(101)
 }
