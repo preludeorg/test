@@ -143,7 +143,7 @@ func Shell(args []string) string {
 	if err != nil {
 		if exitError, ok := err.(*exec.ExitError); ok {
 			println(string(exitError.Stderr))
-			return fmt.Sprintf("%d", exitError.ExitCode())
+			os.Exit(exitError.ExitCode())
 		} else {
 			println(err.Error())
 			os.Exit(1)
