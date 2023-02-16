@@ -7,8 +7,6 @@ package main
 
 import (
 	"fmt"
-	"os"
-	"path/filepath"
 	"runtime"
 
 	Endpoint "github.com/preludeorg/test/endpoint"
@@ -20,16 +18,7 @@ func isNetcatInstalled() bool {
 		ncCmd = "nc.exe"
 	}
 
-	pathEnv := os.Getenv("PATH")
-	pathList := filepath.SplitList(pathEnv)
-	for _, dir := range pathList {
-		ncPath := filepath.Join(dir, ncCmd)
-		if Endpoint.Exists(ncPath) {
-			return true
-		}
-	}
-
-	return false
+	return Endpoint.Installed(ncCmd)
 }
 
 var supported = map[string][]string{
