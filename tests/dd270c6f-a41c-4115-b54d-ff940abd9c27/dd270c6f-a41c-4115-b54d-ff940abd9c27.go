@@ -55,7 +55,7 @@ func searchShodan(ip string) {
 
 	if strings.Contains(string(body), "Ports open: ") {
 		startIndex := strings.Index(string(body), "Ports open: ") + len("Ports open: ")
-		endIndex := strings.Index(string(body)[startIndex:], "</div>")
+		endIndex := strings.Index(string(body)[startIndex:], "\" />")
 
 		openPorts := string(body)[startIndex : startIndex+endIndex]
 		println("Open ports found on the public IP:", openPorts)
@@ -111,7 +111,7 @@ func test() {
 	println("[+] Getting Public IP Address & Location")
 	query, lat, long, err := getPublicIP()
 	if err != nil {
-		println("Error while retrieving public IP:", err)
+		println("Error while retrieving public IP")
 		return
 	}
 
