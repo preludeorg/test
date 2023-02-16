@@ -137,17 +137,15 @@ func Serve(address string, protocol string) {
 	conn.Close()
 }
 
-func Shell(args []string) string {
+func Shell(args []string) (string, error) {
 	cmd := exec.Command(args[0], args[1:]...)
 	stdout, err := cmd.Output()
 	if err != nil {
 		if exitError, ok := err.(*exec.ExitError); ok {
-			println(string(exitError.Stderr))
-			os.Exit(exitError.ExitCode())
+			return "", fmt.Errorf("%s: %s", err.Error(), string(exitError.Stderr))
 		} else {
-			println(err.Error())
-			os.Exit(1)
+			return "", err
 		}
 	}
-	return string(stdout)
+	return string(stdout), nil
 }
