@@ -6,6 +6,6 @@ Endpoint protection should detect and stop the unathorized scheduled task.
 
 ## How
 
-> Safety: the test only echo's "Hello World" in the tasks and the tasks are removed
+> Safety: the test only echo's "detect-task" in the Linux cron and Windows will just add `cmd.exe` to the task
 
-This test creates a scheduled task using native utilities such as `schtasks.exe` and `at` that will echo `Hello World`. If allowed to complete the test will exit with code 101.
+This test creates a scheduled task using native utilities such as `schtasks.exe` and `cron`. If allowed to complete the test will exit with code 101.
