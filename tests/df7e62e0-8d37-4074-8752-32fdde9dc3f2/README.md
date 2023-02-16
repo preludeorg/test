@@ -5,8 +5,9 @@ The presence of remote administration tools such as netcat on a host presents an
 Example output:
 ```
 [+] Starting test
-Netcat is not installed
-[+] Completed with code: 104
+[bash -c nc -vz google.com 80]
+Netcat was able to connect
+[+] Completed with code: 101
 ```
 Any attempts to use netcat are expected to be blocked by endpoint security controls.
 
