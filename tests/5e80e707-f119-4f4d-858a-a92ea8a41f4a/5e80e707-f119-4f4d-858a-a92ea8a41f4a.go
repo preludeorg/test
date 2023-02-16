@@ -12,13 +12,13 @@ import (
 )
 
 var supported = map[string][]string{
-	"windows": {"powershell.exe", "-c", "schtasks.exe", "/Create", "/TN", "detect-task", "/SC", "DAILY", "/ST", "00:00", "/TR", "cmd.exe", "/C", "echo Hello World"},
+	"windows": {"powershell.exe", "-c", "schtasks.exe /Create /TN detect-task /SC DAILY /ST 00:00 /TR cmd.exe /C echo Hello World"},
 	"darwin":  {"bash", "-c", "echo Hello World | at now + 1 minute", "detect-task"},
 	"linux":   {"bash", "-c", "echo Hello World | at now + 1 minute", "detect-task"},
 }
 
 var cleanup = map[string][]string{
-	"windows": {"powershell.exe", "-c", "schtasks.exe", "/Delete", "/TN", "detect-task", "/F"},
+	"windows": {"powershell.exe", "-c", "schtasks.exe /Delete /TN detect-task /F"},
 	"darwin":  {"bash", "-c", "at -l | awk '/detect-task/ {print $1}' | xargs -I{} at -r {}"},
 	"linux":   {"bash", "-c", "at -l | awk '/detect-task/ {print $1}' | xargs -I{} at -r {}"},
 }
