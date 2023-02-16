@@ -29,11 +29,11 @@ func Stop(code int) {
 }
 
 func RunWithTimeout(function fn) {
-    go function()
-    select {
-    case <- time.After(10 * time.Second):
-        os.Exit(102)
-    }
+	go function()
+	select {
+	case <-time.After(10 * time.Second):
+		os.Exit(102)
+	}
 }
 
 func Find(ext string) []string {
@@ -143,7 +143,7 @@ func Shell(args []string) string {
 	if err != nil {
 		if exitError, ok := err.(*exec.ExitError); ok {
 			println(string(exitError.Stderr))
-			os.Exit(exitError.ExitCode())
+			return fmt.Sprintf("%d", exitError.ExitCode())
 		} else {
 			println(err.Error())
 			os.Exit(1)
