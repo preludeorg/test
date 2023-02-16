@@ -1,4 +1,4 @@
-# Can adversaries gather information about an IP address on my network?
+# Can information be gathered about an IP address on my network?
 
 After compromising a device adversaries often programmatically look up and check IP addresses both public and private. This information provides details about the physical location of the device, open public ports and if the IP's are pingable on the network.
 
