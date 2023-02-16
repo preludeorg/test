@@ -13,8 +13,8 @@ import (
 
 var supported = map[string][]string{
 	"windows": {"powershell.exe", "-c", "schtasks.exe /Create /TN detect-task /SC DAILY /ST 00:00 /TR cmd.exe /C echo Hello World"},
-	"darwin":  {"bash", "-c", "(crontab -l && echo \"* * * * *  echo detect-test\") | crontab -"},
-	"linux":   {"bash", "-c", "(crontab -l && echo \"* * * * *  echo detect-test\") | crontab -"},
+	"darwin":  {"bash", "-c", "(crontab -l && echo \"* * * * *  echo detect-task\") | crontab -"},
+	"linux":   {"bash", "-c", "(crontab -l && echo \"* * * * *  echo detect-task\") | crontab -"},
 }
 
 var cleanup = map[string][]string{
