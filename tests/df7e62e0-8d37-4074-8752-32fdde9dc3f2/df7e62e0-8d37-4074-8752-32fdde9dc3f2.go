@@ -1,15 +1,15 @@
 /*
 ID: df7e62e0-8d37-4074-8752-32fdde9dc3f2
-NAME: Will my host block system utilities?
+NAME: Is Netcat installed and operational?
 CREATED: 2023-02-16
 */
 package main
 
 import (
 	"fmt"
-	"os/exec"
+	"os"
+	"path/filepath"
 	"runtime"
-	"strings"
 
 	Endpoint "github.com/preludeorg/test/endpoint"
 )
@@ -20,11 +20,16 @@ func isNetcatInstalled() bool {
 		ncCmd = "nc.exe"
 	}
 
-	_, err := exec.LookPath(ncCmd)
-	if err != nil {
-		return false
+	pathEnv := os.Getenv("PATH")
+	pathList := filepath.SplitList(pathEnv)
+	for _, dir := range pathList {
+		ncPath := filepath.Join(dir, ncCmd)
+		if Endpoint.Exists(ncPath) {
+			return true
+		}
 	}
-	return true
+
+	return false
 }
 
 var supported = map[string][]string{
@@ -39,13 +44,12 @@ func test() {
 		Endpoint.Stop(104)
 	} else {
 		command := supported[runtime.GOOS]
-		fmt.Println(command)
-		result := Endpoint.Shell(command)
-		if strings.Contains(result, "Ncat: Connection refused") {
+		output, err := Endpoint.Shell(command)
+		if err != nil {
 			println("Unable to use netcat")
 			Endpoint.Stop(100)
 		} else {
-			println("Netcat was able to connect")
+			println("Netcat was able to connect", output)
 			Endpoint.Stop(101)
 		}
 	}
