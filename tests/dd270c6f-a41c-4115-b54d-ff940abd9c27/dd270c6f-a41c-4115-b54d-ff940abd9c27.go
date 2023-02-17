@@ -112,7 +112,6 @@ func test() {
 	query, lat, long, err := getPublicIP()
 	if err != nil {
 		println("Error while retrieving public IP")
-		return
 	}
 
 	println("Public IP:", query)
