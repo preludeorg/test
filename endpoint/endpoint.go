@@ -150,13 +150,16 @@ func Shell(args []string) (string, error) {
 	return string(stdout), nil
 }
 
-func Installed(file string) bool {
+func IsAvailable(programs ...string) bool {
 	pathEnv := os.Getenv("PATH")
 	pathList := filepath.SplitList(pathEnv)
-	for _, dir := range pathList {
-		filePath := filepath.Join(dir, file)
-		if _, err := os.Stat(filePath); err == nil {
-			return true
+
+	for _, program := range programs {
+		for _, dir := range pathList {
+			programPath := filepath.Join(dir, program)
+			if Exists(programPath) {
+				return true
+			}
 		}
 	}
 
