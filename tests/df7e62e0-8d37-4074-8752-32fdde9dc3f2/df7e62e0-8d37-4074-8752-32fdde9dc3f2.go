@@ -6,20 +6,10 @@ CREATED: 2023-02-16
 package main
 
 import (
-	"fmt"
 	"runtime"
 
 	Endpoint "github.com/preludeorg/test/endpoint"
 )
-
-func isNetcatInstalled() bool {
-	ncCmd := "nc"
-	if runtime.GOOS == "windows" {
-		ncCmd = "nc.exe"
-	}
-
-	return Endpoint.Installed(ncCmd)
-}
 
 var supported = map[string][]string{
 	"windows": {"cmd.exe", "/c", "nc.exe -z google.com 80"},
@@ -28,19 +18,19 @@ var supported = map[string][]string{
 }
 
 func test() {
-	if !isNetcatInstalled() {
-		println("Netcat is not installed")
-		Endpoint.Stop(104)
-	} else {
+	if Endpoint.IsAvailable("nc", "nc.exe") {
 		command := supported[runtime.GOOS]
 		output, err := Endpoint.Shell(command)
 		if err != nil {
-			println("Unable to use netcat")
+			println("[+] Unable to use netcat")
 			Endpoint.Stop(100)
 		} else {
-			println("Netcat was able to connect", output)
+			println("[-] Netcat was able to connect", output)
 			Endpoint.Stop(101)
 		}
+	} else {
+		println("[+] Netcat is not installed")
+		Endpoint.Stop(104)
 	}
 }
 
@@ -51,3 +41,4 @@ func clean() {
 func main() {
 	Endpoint.Start(test, clean)
 }
+
