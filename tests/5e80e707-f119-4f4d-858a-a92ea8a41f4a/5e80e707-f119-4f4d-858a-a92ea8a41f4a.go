@@ -1,6 +1,6 @@
 /*
 ID: 5e80e707-f119-4f4d-858a-a92ea8a41f4a
-NAME: Can persistence be established on my host?
+NAME: Can scheduled task persistence be established on my host?
 CREATED: 2023-02-14
 */
 package main
