@@ -1,11 +1,18 @@
-# Can you stop common persistence methods?
+# Can persistence be established on my host?
 
-Persistence is a common goal of many adversaries. It increases their chances of survival in an environment. This test focuses on one specific type of persistence mechanism that is commonly used by attackers, scheduled task persistence. This involves creating scheduled tasks that run a command at regular intervals, making it more difficult to detect and remove.
+Many adversaries seek to establish persistence within a system as a means of increasing their chances of survival and success. In order to achieve this, they often rely on a variety of persistence mechanisms that allow their malicious activities to continue undetected. One particularly common method of persistence is known as scheduled task persistence, in which attackers create scheduled tasks that run a command at regular intervals. This technique can make it much more challenging for defenders to detect and remove the attacker's presence, which underscores the importance of understanding and defending against this type of threat.
+
+Example output:
+```
+[+] Starting test
+[-] Scheduled task was not caught
+[+] Completed with code: 101
+```
 
 Endpoint protection should detect and stop the unathorized scheduled task.
 
 ## How
 
-> Safety: the test only echo's "detect-task" in the Linux cron and Windows will just add `cmd.exe` to the task
+> Safety: the test does not execute any malicious code and removes the tasks as part of cleanup
 
-This test creates a scheduled task using native utilities such as `schtasks.exe` and `cron`. If allowed to complete the test will exit with code 101.
+This test creates a scheduled task using native utilities such as `schtasks.exe` and `cron`. For Linux, the task will just echo a string to emulate command execution. On Windows, the `cmd.exe` executable is added as part of the task to emulate a single binary being added to a task, which is common among many adversary groups and their malware for command and control. Once added to the host the `isTaskScheduled` function will check if the task exists and will exit with code 101. Indicating security controls failed to prevent unauthorized persistence.
