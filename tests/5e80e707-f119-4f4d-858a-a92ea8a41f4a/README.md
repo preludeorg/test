@@ -1,6 +1,6 @@
-# Can persistence be established on my host?
+# Can scheduled task persistence be established on my host?
 
-Many adversaries seek to establish persistence within a system as a means of increasing their chances of survival and success. In order to achieve this, they often rely on a variety of persistence mechanisms that allow their malicious activities to continue undetected. One particularly common method of persistence is known as scheduled task persistence, in which attackers create scheduled tasks that run a command at regular intervals. This technique can make it much more challenging for defenders to detect and remove the attacker's presence, which underscores the importance of understanding and defending against this type of threat.
+Many adversaries seek to establish persistence within a system as a means of increasing their chances of survival and success. In order to achieve this, they often rely on a variety of persistence mechanisms that allow their malicious activities to continue undetected. One particularly common method of persistence is known as scheduled task persistence, in which attackers create scheduled tasks that run a command or executable at regular intervals. This technique can make it much more challenging for defenders to detect and remove the attacker's presence, which underscores the importance of understanding and defending against this type of threat.
 
 Example output:
 ```
