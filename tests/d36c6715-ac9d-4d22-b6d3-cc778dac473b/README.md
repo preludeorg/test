@@ -5,6 +5,7 @@ Exploit attempts represent a significant security threat by allowing attackers t
 Example output:
 ```
 [+] Starting Test
+[+] Executing CVE-2019-14287 on Linux/Darwin OR CVE-2016-0099 on Windows.
 [-] Test was not prevented
 ```
 Defenses should prevent exploit attempts from running.
