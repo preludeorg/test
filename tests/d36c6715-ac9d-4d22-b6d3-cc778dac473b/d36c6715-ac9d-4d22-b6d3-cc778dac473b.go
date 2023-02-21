@@ -30,7 +30,7 @@ func test() {
 	if runtime.GOOS == "windows" {
 		Endpoint.Write(path, ms16032)
 	}
-	println("Executing CVE-2019-14287 on Linux/Darwin OR CVE-2016-0099 on Windows")
+	println("[+] Executing CVE-2019-14287 on Linux/Darwin OR CVE-2016-0099 on Windows")
 	cmd, err := Endpoint.Shell(command)
 	if err != nil {
 		println("[+] The test was prevented or machine not vulnerable")
