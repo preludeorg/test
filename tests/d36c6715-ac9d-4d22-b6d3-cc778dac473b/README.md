@@ -8,7 +8,7 @@ Example output:
 [+] Executing CVE-2019-14287 on Linux/Darwin OR CVE-2016-0099 on Windows.
 [-] Test was not prevented
 ```
-Defenses should prevent exploit attempts from running.
+Defenses should recognize an exploit attempt and stop it from completing.
 
 ## How
 
