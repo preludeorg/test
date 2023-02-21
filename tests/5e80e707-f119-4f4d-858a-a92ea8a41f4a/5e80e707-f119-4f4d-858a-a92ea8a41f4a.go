@@ -6,6 +6,7 @@ CREATED: 2023-02-14
 package main
 
 import (
+	"bytes"
 	"runtime"
 
 	Endpoint "github.com/preludeorg/test/endpoint"
@@ -17,20 +18,45 @@ var supported = map[string][]string{
 	"linux":   {"bash", "-c", "(crontab -l && echo \"* * * * *  echo detect-task\") | crontab -"},
 }
 
-var cleanup = map[string][]string{
+var remove = map[string][]string{
 	"windows": {"powershell.exe", "-c", "schtasks.exe /Delete /TN detect-task /F"},
 	"darwin":  {"bash", "-c", "crontab -l | grep -v 'detect-task' | crontab -"},
 	"linux":   {"bash", "-c", "crontab -l | grep -v 'detect-task' | crontab -"},
 }
 
+var list = map[string][]string{
+	"windows": {"schtasks.exe", "/query /TN detect-task"},
+	"darwin":  {"crontab", "-l"},
+	"linux":   {"crontab", "-l"},
+}
+
+func isTaskScheduled() bool {
+	command := list[runtime.GOOS]
+	output, err := Endpoint.Shell(command)
+	if err != nil {
+		return false
+	}
+	if runtime.GOOS == "windows" {
+		return bytes.Contains([]byte(output), []byte("detect-task"))
+	} else {
+		return bytes.Contains([]byte(output), []byte("echo detect-task"))
+	}
+}
+
 func test() {
 	command := supported[runtime.GOOS]
 	Endpoint.Shell(command)
-	Endpoint.Stop(101)
+	if isTaskScheduled() {
+		println("[-] Scheduled task was not caught")
+		Endpoint.Stop(101)
+	} else {
+		println("[+] Scheduled task was caught!")
+		Endpoint.Stop(100)
+	}
 }
 
 func clean() {
-	command := cleanup[runtime.GOOS]
+	command := remove[runtime.GOOS]
 	Endpoint.Shell(command)
 	Endpoint.Stop(100)
 }
