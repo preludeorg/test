@@ -1,6 +1,6 @@
 /*
 ID: d36c6715-ac9d-4d22-b6d3-cc778dac473b
-NAME: Can a low priv user privilege escalate to an administrator?
+NAME: Are exploit attempts prevented?
 CREATED: 2023-02-15 12:26:17.091000
 */
 package main
