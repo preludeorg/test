@@ -137,17 +137,30 @@ func Serve(address string, protocol string) {
 	conn.Close()
 }
 
-func Shell(args []string) string {
+func Shell(args []string) (string, error) {
 	cmd := exec.Command(args[0], args[1:]...)
 	stdout, err := cmd.Output()
 	if err != nil {
 		if exitError, ok := err.(*exec.ExitError); ok {
-			println(string(exitError.Stderr))
-			os.Exit(exitError.ExitCode())
+			return "", fmt.Errorf("%s: %s", err.Error(), string(exitError.Stderr))
 		} else {
-			println(err.Error())
-			os.Exit(1)
+			return "", err
 		}
 	}
-	return string(stdout)
+	return string(stdout), nil
+}
+
+func IsAvailable(programs ...string) bool {
+	pathEnv := os.Getenv("PATH")
+	pathList := filepath.SplitList(pathEnv)
+
+	for _, program := range programs {
+		for _, dir := range pathList {
+			programPath := filepath.Join(dir, program)
+			if Exists(programPath) {
+				return true
+			}
+		}
+	}
+	return false
 }
