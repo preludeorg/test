@@ -9,6 +9,7 @@ import (
 	"encoding/binary"
 	"net"
 	"os/exec"
+	"sync"
 
 	Endpoint "github.com/preludeorg/test/endpoint"
 )
@@ -36,6 +37,9 @@ func pingSweep() {
 		println(err)
 		return
 	}
+
+	var wg sync.WaitGroup
+	var mutex sync.Mutex
 
 	for _, i := range interfaces {
 		if i.Flags&net.FlagUp == 0 {
@@ -65,16 +69,21 @@ func pingSweep() {
 			if ipRange != nil || ipAddr != nil {
 				hosts := Hosts(ipRange.String())
 				for _, host := range hosts {
-					cmd := exec.Command("ping", "-c 1 -t 1", host)
-					if err := cmd.Run(); err != nil {
-						println(host, " is down")
-					} else {
-						println(host, " is up and belongs to ", i.HardwareAddr.String())
-					}
+					wg.Add(1)
+					go func(host string) {
+						defer wg.Done()
+						cmd := exec.Command("ping", "-c", "1", "-t", "1", host)
+						if err := cmd.Run(); err == nil {
+							mutex.Lock()
+							println(host + " is up")
+							mutex.Unlock()
+						}
+					}(host)
 				}
 			}
 		}
 	}
+	wg.Wait()
 }
 
 func test() {
