@@ -14,7 +14,6 @@ import (
 )
 
 func Hosts(netw string) []string {
-	// convert string to IPNet struct
 	_, ipv4Net, err := net.ParseCIDR(netw)
 	if err != nil {
 		println(err)
