@@ -62,5 +62,6 @@ func clean() {
 }
 
 func main() {
+	defer clean()
 	Endpoint.Start(test, clean)
 }
