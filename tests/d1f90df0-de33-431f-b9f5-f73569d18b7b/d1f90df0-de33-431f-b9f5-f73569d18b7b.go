@@ -6,11 +6,30 @@ CREATED: 2023-02-17 10:45:43.815000
 package main
 
 import (
+	"encoding/binary"
 	"net"
 	"os/exec"
 
 	Endpoint "github.com/preludeorg/test/endpoint"
 )
+
+func Hosts(netw string) []string {
+	// convert string to IPNet struct
+	_, ipv4Net, err := net.ParseCIDR(netw)
+	if err != nil {
+		println(err)
+	}
+	mask := binary.BigEndian.Uint32(ipv4Net.Mask)
+	start := binary.BigEndian.Uint32(ipv4Net.IP)
+	finish := (start & mask) | (mask ^ 0xffffffff)
+	var hosts []string
+	for i := start + 1; i <= finish-1; i++ {
+		ip := make(net.IP, 4)
+		binary.BigEndian.PutUint32(ip, i)
+		hosts = append(hosts, ip.String())
+	}
+	return hosts
+}
 
 func pingSweep() {
 	interfaces, err := net.Interfaces()
@@ -32,23 +51,27 @@ func pingSweep() {
 			return
 		}
 		for _, addr := range addrs {
-			var ip net.IP
+			var ipRange *net.IPNet
+			var ipAddr *net.IPAddr
 			switch v := addr.(type) {
 			case *net.IPNet:
-				ip = v.IP
+				if v.IP.To4() != nil {
+					ipRange = v
+				}
 			case *net.IPAddr:
-				ip = v.IP
+				if v.IP.To4() != nil {
+					ipAddr = v
+				}
 			}
-			if ip == nil || ip.IsLoopback() {
-				continue
-			}
-			if ip.To4() != nil {
-				ipStr := ip.String()
-				cmd := exec.Command("ping", "-c", "1", "-t", "1", ipStr)
-				if err := cmd.Run(); err != nil {
-					println(ipStr, "is down")
-				} else {
-					println(ipStr, "is up and belongs to", i.HardwareAddr.String())
+			if ipRange != nil || ipAddr != nil {
+				hosts := Hosts(ipRange.String())
+				for _, host := range hosts {
+					cmd := exec.Command("ping", "-c 1 -t 1", host)
+					if err := cmd.Run(); err != nil {
+						println(host, " is down")
+					} else {
+						println(host, " is up and belongs to ", i.HardwareAddr.String())
+					}
 				}
 			}
 		}
