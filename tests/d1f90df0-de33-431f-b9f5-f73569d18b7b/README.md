@@ -1,6 +1,6 @@
-# Will my host prevent/block an attempted outgoing ping sweep
+# Will my host prevent an attempted outgoing ping sweep?
 
-This VST tests whether a host can detect an attempted ping sweep, which is a common technique used by attackers to discover live hosts on a network. The code utilizes the "ping" command to send a single ICMP packet to each IP address within a specified network range, and checks if any of the hosts respond. If a response is received, it indicates that the host is up and an attacker may want to attempt to pivot to that machine. 
+This VST tests whether a host can detect an attempted ping sweep, which is a common technique used by attackers to discover live hosts on a network. The code utilizes the "ping" command to send a single ICMP packet to each IP address within a specified network range and checks if any of the hosts respond. If a response is received, it indicates that the host is up, and an attacker may want to attempt to pivot to that machine. 
 
 ```
 [+] Starting test
@@ -12,6 +12,6 @@ exit status 101
 
 ## How 
 
-> Saftey: No packets beyond an ICMP packet are sent to the hosts.
+> Safety: No packets beyond an ICMP packet are sent to the hosts.
 
-This code defines a ping sweep function that performs a scan of the local network to identify online hosts by sending ICMP echo request packets. If any hosts are found, the function stops the program execution via the Endpoint module's Stop function. 
+This code defines a ping sweep function that performs a scan of the local network to identify online hosts by sending ICMP echo request packets. If any hosts are found, the test exits with an "unprotected" code (101). An "outbound secure" (106) code is returned if no hosts are found.
