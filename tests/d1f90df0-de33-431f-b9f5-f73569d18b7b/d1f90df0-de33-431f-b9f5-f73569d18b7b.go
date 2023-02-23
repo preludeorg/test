@@ -32,6 +32,7 @@ func Hosts(netw string) []string {
 }
 
 func pingSweep() {
+	b := false
 	interfaces, err := net.Interfaces()
 	if err != nil {
 		println(err)
@@ -77,6 +78,7 @@ func pingSweep() {
 							mutex.Lock()
 							println(host + " is up")
 							mutex.Unlock()
+							b = true
 						}
 					}(host)
 				}
@@ -84,13 +86,16 @@ func pingSweep() {
 		}
 	}
 	wg.Wait()
+	if b {
+		Endpoint.Stop(101)
+	}
 }
 
 func test() {
 	println("[+] Ping Sweep")
 	pingSweep()
 
-	Endpoint.Stop(101)
+	Endpoint.Stop(106)
 }
 
 func clean() {
