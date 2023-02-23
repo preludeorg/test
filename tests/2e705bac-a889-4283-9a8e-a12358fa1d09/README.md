@@ -1,8 +1,6 @@
 # Will your computer quarantine Royal Ransomware?
 
-This test uses a defanged Royal Ransomware ELF which is then dropped to disk. 
-Ransomware is a form of malware that encrypts files on a device.  After encrypting files, the ransomware operator demands a ransom to decrypt the encrypted files. If the ransom is not paid, file recovery may not be possible.
-For this ransomware sample to work, the ELF needs to be executed on a supported Linux x86_64 device.
+This test uses a defanged Royal Ransomware ELF from their recent campaign [targetting Linux ESXI Servers](https://www.bleepingcomputer.com/news/security/linux-version-of-royal-ransomware-targets-vmware-esxi-servers/), which is then dropped to disk. The group was first spotted in the wild in January 2022 and is believed to be compromised of threat actors who previously worked with the Conti operation. After encrypting their targets' enterprise network systems, the gang often demands ransom payments ranging from $250,000 to tens of millions. Ransomware is a form of malware that encrypts files on a device. After encrypting files, the ransomware operator demands a ransom to decrypt the encrypted files. If the ransom is not paid, file recovery may not be possible.
 
 Example output:
 ```
