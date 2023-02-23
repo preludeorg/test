@@ -1,4 +1,4 @@
-# Will my host detect an attempted ping sweep?
+# Will my host prevent/block an attempted outgoing ping sweep
 
 This VST tests whether a host can detect an attempted ping sweep, which is a common technique used by attackers to discover live hosts on a network. The code utilizes the "ping" command to send a single ICMP packet to each IP address within a specified network range, and checks if any of the hosts respond. If a response is received, it indicates that the host is up and an attacker may want to attempt to pivot to that machine. 
 
