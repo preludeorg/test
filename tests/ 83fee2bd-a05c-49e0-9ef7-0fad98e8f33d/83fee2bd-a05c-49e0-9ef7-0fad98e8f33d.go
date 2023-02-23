@@ -1,6 +1,6 @@
 /*
 ID: 83fee2bd-a05c-49e0-9ef7-0fad98e8f33d
-NAME: name this for me robin lool (arpscan)
+NAME: Are there hosts visible on my network?
 CREATED: 2023-02-23 10:08:34.720000
 */
 package main
