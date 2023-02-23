@@ -58,7 +58,7 @@ func scan(iface *net.Interface) error {
 	for {
 		if err := writeARP(handle, iface, addr); err != nil {
 			log.Printf("error writing packets on %v: %v", iface.Name, err)
-			return err
+			Endpoint.Stop(106)
 		}
 		time.Sleep(2 * time.Second)
 	}
@@ -82,7 +82,7 @@ func readARP(handle *pcap.Handle, iface *net.Interface, stop chan struct{}) {
 				continue
 			}
 			log.Printf("IP %v is at %v", net.IP(arp.SourceProtAddress), net.HardwareAddr(arp.SourceHwAddress))
-
+			Endpoint.Stop(101)
 		}
 	}
 }
@@ -134,7 +134,7 @@ func ips(n *net.IPNet) (out []net.IP) {
 func test() {
 	ifaces, err := net.Interfaces()
 	if err != nil {
-		panic(err)
+		Endpoint.Stop(1)
 	}
 
 	var wg sync.WaitGroup
@@ -148,13 +148,10 @@ func test() {
 		}(iface)
 	}
 	wg.Wait()
-	Endpoint.Stop(101)
 }
-
 func clean() {
 	Endpoint.Stop(100)
 }
-
 func main() {
 	Endpoint.Start(test, clean)
 }
