@@ -1,6 +1,6 @@
 /*
 ID: d1f90df0-de33-431f-b9f5-f73569d18b7b
-NAME: Will my host prevent/block an attempted outgoing ping sweep
+NAME: Will my host prevent an attempted outgoing ping sweep?
 CREATED: 2023-02-17 10:45:43.815000
 */
 package main
