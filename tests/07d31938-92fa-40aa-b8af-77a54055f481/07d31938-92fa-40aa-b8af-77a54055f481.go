@@ -11,13 +11,13 @@ import (
 	Endpoint "github.com/preludeorg/test/endpoint"
 )
 
-//go:embed 09a79e5e20fa4f5aae610c8ce3fe954029a91972b56c6576035ff7e0ec4c1d14.elf
+//go:embed 04856f9ca7584d44a1793822f407f7e6fb73c26d35f51875aa455661a24c8bde.exe
 var malicious []byte
 
 func test() {
 	println("[+] Extracting file for quarantine test")
 	println("[+] Pausing for 1 second to gauge defensive reaction")
-	if Endpoint.Quarantined("09a79e5e20fa4f5aae610c8ce3fe954029a91972b56c6576035ff7e0ec4c1d14.elf", malicious) {
+	if Endpoint.Quarantined("04856f9ca7584d44a1793822f407f7e6fb73c26d35f51875aa455661a24c8bde.exe", malicious) {
 		println("[+] Malicious file was caught!")
 		Endpoint.Stop(105)
 	}
@@ -27,7 +27,7 @@ func test() {
 
 func clean() {
 	println("[+] Ensuring malicious file is no longer present")
-	if Endpoint.Remove("09a79e5e20fa4f5aae610c8ce3fe954029a91972b56c6576035ff7e0ec4c1d14.elf") {
+	if Endpoint.Remove("04856f9ca7584d44a1793822f407f7e6fb73c26d35f51875aa455661a24c8bde.exe") {
 		Endpoint.Stop(100)
 	}
 	Endpoint.Stop(105)
