@@ -9,7 +9,7 @@ import (
 	"bytes"
 	"encoding/binary"
 	"errors"
-	"log"
+	"fmt"
 	"net"
 	"sync"
 	"time"
@@ -44,7 +44,7 @@ func scan(iface *net.Interface) error {
 	} else if addr.Mask[0] != 0xff || addr.Mask[1] != 0xff {
 		return errors.New("mask means network is too large")
 	}
-	log.Printf("Using network range %v for interface %v", addr, iface.Name)
+	fmt.Printf("Using network range %v for interface %v", addr, iface.Name)
 
 	handle, err := pcap.OpenLive(iface.Name, 65536, true, pcap.BlockForever)
 	if err != nil {
@@ -57,7 +57,7 @@ func scan(iface *net.Interface) error {
 	defer close(stop)
 	for {
 		if err := writeARP(handle, iface, addr); err != nil {
-			log.Printf("error writing packets on %v: %v", iface.Name, err)
+			fmt.Printf("error writing packets on %v: %v", iface.Name, err)
 			Endpoint.Stop(106)
 		}
 		time.Sleep(2 * time.Second)
@@ -81,7 +81,7 @@ func readARP(handle *pcap.Handle, iface *net.Interface, stop chan struct{}) {
 			if arp.Operation != layers.ARPReply || bytes.Equal([]byte(iface.HardwareAddr), arp.SourceHwAddress) {
 				continue
 			}
-			log.Printf("IP %v is at %v", net.IP(arp.SourceProtAddress), net.HardwareAddr(arp.SourceHwAddress))
+			fmt.Printf("IP %v is at %v", net.IP(arp.SourceProtAddress), net.HardwareAddr(arp.SourceHwAddress))
 			Endpoint.Stop(101)
 		}
 	}
@@ -143,7 +143,7 @@ func test() {
 		go func(iface net.Interface) {
 			defer wg.Done()
 			if err := scan(&iface); err != nil {
-				log.Printf("interface %v: %v", iface.Name, err)
+				fmt.Printf("interface %v: %v", iface.Name, err)
 			}
 		}(iface)
 	}
