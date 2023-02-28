@@ -1,7 +1,7 @@
 /*
 ID: 07d31938-92fa-40aa-b8af-77a54055f481
 NAME: Will your computer quarantine Redline Stealer?
-CREATED: 2023-02-28 19:30:03.973038
+CREATED: 2023-02-28
 */
 package main
 
