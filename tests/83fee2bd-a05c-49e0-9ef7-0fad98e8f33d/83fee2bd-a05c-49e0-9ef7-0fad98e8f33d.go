@@ -44,7 +44,7 @@ func scan(iface *net.Interface) error {
 	} else if addr.Mask[0] != 0xff || addr.Mask[1] != 0xff {
 		return errors.New("mask means network is too large")
 	}
-	fmt.Printf("Using network range %v for interface %v", addr, iface.Name)
+	fmt.Printf("Using network range %v for interface %v\n", addr, iface.Name)
 
 	handle, err := pcap.OpenLive(iface.Name, 65536, true, pcap.BlockForever)
 	if err != nil {
@@ -81,7 +81,7 @@ func readARP(handle *pcap.Handle, iface *net.Interface, stop chan struct{}) {
 			if arp.Operation != layers.ARPReply || bytes.Equal([]byte(iface.HardwareAddr), arp.SourceHwAddress) {
 				continue
 			}
-			fmt.Printf("IP %v is at %v", net.IP(arp.SourceProtAddress), net.HardwareAddr(arp.SourceHwAddress))
+			fmt.Printf("IP %v is at %v\n", net.IP(arp.SourceProtAddress), net.HardwareAddr(arp.SourceHwAddress))
 			Endpoint.Stop(101)
 		}
 	}
@@ -143,7 +143,8 @@ func test() {
 		go func(iface net.Interface) {
 			defer wg.Done()
 			if err := scan(&iface); err != nil {
-				fmt.Printf("interface %v: %v", iface.Name, err)
+				fmt.Printf("interface %v: %v\n", iface.Name, err)
+				Endpoint.Stop(100)
 			}
 		}(iface)
 	}
