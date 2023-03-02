@@ -19,7 +19,7 @@ Failure
 Success
 [+] Starting test
 [+] Passwordless escalation failed!
-[+] Completed with code: 105
+[+] Completed with code: 107
 ```
 
 # Windows

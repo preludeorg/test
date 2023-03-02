@@ -6,8 +6,8 @@ CREATED: 2023-02-17
 package main
 
 import (
-	"runtime"
 	"os/exec"
+	"runtime"
 
 	Endpoint "github.com/preludeorg/test/endpoint"
 )
@@ -24,17 +24,13 @@ func test() {
 
 	if err != nil {    
 		println("[+] Passwordless escalation failed!")
-		Endpoint.Stop(105)
+		Endpoint.Stop(107)
 	}
 
 	println("[+] Passwordless escalation succeeded!")
 	Endpoint.Stop(101)
 }
 
-func clean() {
-	Endpoint.Stop(100)
-}
-
 func main() {
-	Endpoint.Start(test, clean)
+	Endpoint.Start(test)
 }
