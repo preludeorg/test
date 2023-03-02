@@ -20,7 +20,7 @@ var nocreds = map[string][]string{
 
 func test() {
 	cmd := exec.Command(nocreds[runtime.GOOS][0], nocreds[runtime.GOOS][1:]...)
-  _, err := cmd.Output()
+	_, err := cmd.Output()
 
 	if err != nil {    
 		println("[+] Passwordless escalation failed!")
