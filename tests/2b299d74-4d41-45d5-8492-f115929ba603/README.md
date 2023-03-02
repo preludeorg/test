@@ -43,7 +43,7 @@ echo '' | runas /user:$env:computername\administrator /savecred whoami
 # Darwin / Linux
 
 MacOS and most linux distros ship with some sort of sudo access. Mac defaults to
-requiring a password, where as Linux distro's vary wildly. The linux version of
+requiring a password, where as Linux distro's vary wildly. Both versions of
 this test attempts to escalate to run whoami. If prompted for a password it
 receives and empty string the escalation fails.
 
