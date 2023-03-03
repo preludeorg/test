@@ -24,10 +24,10 @@ var search = map[string][]string{
 }
 
 func test() {
-	passwordPolicy := Endpoint.Shell(policy[runtime.GOOS])
+	passwordPolicy, _ := Endpoint.Shell(policy[runtime.GOOS])
 	print(passwordPolicy)
 	if len(passwordPolicy) > 0 {
-		passwords := Endpoint.Shell(search[runtime.GOOS])
+		passwords, _ := Endpoint.Shell(search[runtime.GOOS])
 		print(passwords)
 	}
 	Endpoint.Stop(101)
