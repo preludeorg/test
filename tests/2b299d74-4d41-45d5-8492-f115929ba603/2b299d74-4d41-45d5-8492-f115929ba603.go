@@ -6,7 +6,6 @@ CREATED: 2023-02-17
 package main
 
 import (
-	"os/exec"
 	"runtime"
 
 	Endpoint "github.com/preludeorg/test/endpoint"
@@ -19,8 +18,7 @@ var nocreds = map[string][]string{
 }
 
 func test() {
-	cmd := exec.Command(nocreds[runtime.GOOS][0], nocreds[runtime.GOOS][1:]...)
-	_, err := cmd.Output()
+	_, err := Endpoint.Shell(nocreds[runtime.GOOS])
 
 	if err != nil {    
 		println("[+] Passwordless escalation failed!")
@@ -31,6 +29,10 @@ func test() {
 	Endpoint.Stop(101)
 }
 
+func clean() {
+	Endpoint.Stop(100)
+}
+
 func main() {
-	Endpoint.Start(test)
+	Endpoint.Start(test, clean)
 }
