@@ -29,11 +29,11 @@ func Stop(code int) {
 }
 
 func RunWithTimeout(function fn) {
-    go function()
-    select {
-    case <- time.After(10 * time.Second):
-        os.Exit(102)
-    }
+	go function()
+	select {
+	case <-time.After(10 * time.Second):
+		os.Exit(102)
+	}
 }
 
 func Find(ext string) []string {
