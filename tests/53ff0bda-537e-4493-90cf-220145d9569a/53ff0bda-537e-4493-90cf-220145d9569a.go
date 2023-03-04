@@ -20,11 +20,11 @@ var supported = map[string][]string{
 
 func test() {
 	command := supported[runtime.GOOS]
-	result := Endpoint.Shell(command)
+	result, _ := Endpoint.Shell(command)
 	if strings.Contains(result, "Prelude") {
 		println(result)
 		Endpoint.Stop(101)
-	} 
+	}
 	Endpoint.Stop(100)
 }
 
