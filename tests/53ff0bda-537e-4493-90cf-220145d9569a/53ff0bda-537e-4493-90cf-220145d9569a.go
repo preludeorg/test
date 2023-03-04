@@ -24,7 +24,7 @@ func test() {
 	if strings.Contains(result, "Prelude") {
 		println(result)
 		Endpoint.Stop(101)
-	}
+	} 
 	Endpoint.Stop(100)
 }
 
