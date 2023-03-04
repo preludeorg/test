@@ -151,15 +151,11 @@ func Shell(args []string) (string, error) {
 }
 
 func IsAvailable(programs ...string) bool {
-	pathEnv := os.Getenv("PATH")
-	pathList := filepath.SplitList(pathEnv)
 
 	for _, program := range programs {
-		for _, dir := range pathList {
-			programPath := filepath.Join(dir, program)
-			if Exists(programPath) {
-				return true
-			}
+		_, err := exec.LookPath(program)
+		if err == nil {
+			return true
 		}
 	}
 	return false
