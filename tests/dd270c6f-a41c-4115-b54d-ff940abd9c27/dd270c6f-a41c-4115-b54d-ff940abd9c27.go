@@ -6,8 +6,9 @@ CREATED: 2023-01-21
 package main
 
 import (
-	"github.com/preludeorg/test/endpoint"
 	"runtime"
+
+	Endpoint "github.com/preludeorg/test/endpoint"
 )
 
 var supported = map[string][]string{
@@ -18,7 +19,7 @@ var supported = map[string][]string{
 
 func test() {
 	command := supported[runtime.GOOS]
-	response := Endpoint.Shell(command)
+	response, _ := Endpoint.Shell(command)
 	print(response)
 	Endpoint.Stop(101)
 }
