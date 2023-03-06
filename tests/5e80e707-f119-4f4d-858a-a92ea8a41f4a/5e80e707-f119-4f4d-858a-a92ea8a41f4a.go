@@ -30,7 +30,7 @@ var list = map[string][]string{
 	"linux":   {"crontab", "-l"},
 }
 
-func isTaskScheduled() bool {
+func isTaskScheduled(output string) bool {
 	command := list[runtime.GOOS]
 	output, err := Endpoint.Shell(command)
 	if err != nil {
@@ -45,19 +45,19 @@ func isTaskScheduled() bool {
 
 func test() {
 	command := supported[runtime.GOOS]
-	Endpoint.Shell(command)
-	if isTaskScheduled() {
-		println("[-] Scheduled task was allowed")
+	output, _ := Endpoint.Shell(command)
+	if isTaskScheduled(output) {
+		println("[-] Scheduled task was not caught")
 		Endpoint.Stop(101)
 	} else {
-		println("[+] Scheduled task was not allowed!")
+		println("[+] Scheduled task was caught!")
 		Endpoint.Stop(100)
 	}
 }
 
 func clean() {
 	command := remove[runtime.GOOS]
-	Endpoint.Shell(command)
+	_, _ = Endpoint.Shell(command)
 	Endpoint.Stop(100)
 }
 
