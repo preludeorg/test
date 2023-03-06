@@ -1,7 +1,7 @@
 /*
 ID: d36c6715-ac9d-4d22-b6d3-cc778dac473b
-NAME: Are exploit attempts prevented?
-CREATED: 2023-02-15 12:26:17.091000
+NAME: Can a regular user run administrator-level commands?
+CREATED: 2023-02-15
 */
 package main
 
