@@ -47,10 +47,10 @@ func test() {
 	command := supported[runtime.GOOS]
 	output, _ := Endpoint.Shell(command)
 	if isTaskScheduled(output) {
-		println("[-] Scheduled task was not caught")
+		println("[-] Scheduled task was allowed")
 		Endpoint.Stop(101)
 	} else {
-		println("[+] Scheduled task was caught!")
+		println("[+] Scheduled task was not allowed!")
 		Endpoint.Stop(100)
 	}
 }
