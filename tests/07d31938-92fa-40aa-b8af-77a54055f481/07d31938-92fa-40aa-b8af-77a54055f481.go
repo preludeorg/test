@@ -34,5 +34,6 @@ func clean() {
 }
 
 func main() {
-	Endpoint.Start(test, clean)
+	defer clean()
+	Endpoint.Start(test)
 }

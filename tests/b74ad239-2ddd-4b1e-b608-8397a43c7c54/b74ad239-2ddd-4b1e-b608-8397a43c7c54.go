@@ -7,7 +7,8 @@ package main
 
 import (
 	_ "embed"
-	"github.com/preludeorg/test/endpoint"
+
+	Endpoint "github.com/preludeorg/test/endpoint"
 )
 
 //go:embed malicious.xlsm
@@ -33,5 +34,6 @@ func clean() {
 }
 
 func main() {
-	Endpoint.Start(test, clean)
+	defer clean()
+	Endpoint.Start(test)
 }
