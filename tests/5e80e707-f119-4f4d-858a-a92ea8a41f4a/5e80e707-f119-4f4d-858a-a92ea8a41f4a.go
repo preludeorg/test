@@ -45,10 +45,7 @@ func isTaskScheduled(output string) bool {
 
 func test() {
 	command := supported[runtime.GOOS]
-	output, err := Endpoint.Shell(command)
-	if err != nil {
-		println(err)
-	}
+	output, _ := Endpoint.Shell(command)
 	if isTaskScheduled(output) {
 		println("[-] Scheduled task was allowed")
 		Endpoint.Stop(101)
