@@ -67,7 +67,8 @@ func scan(iface *net.Interface) error {
 func readARP(handle *pcap.Handle, iface *net.Interface, stop chan struct{}) {
 	src := gopacket.NewPacketSource(handle, layers.LayerTypeEthernet)
 	in := src.Packets()
-	for {
+	n := 0
+	for n != 5 {
 		var packet gopacket.Packet
 		select {
 		case <-stop:
@@ -79,12 +80,14 @@ func readARP(handle *pcap.Handle, iface *net.Interface, stop chan struct{}) {
 			}
 			arp := arpLayer.(*layers.ARP)
 			if arp.Operation != layers.ARPReply || bytes.Equal([]byte(iface.HardwareAddr), arp.SourceHwAddress) {
+
 				continue
 			}
 			fmt.Printf("IP %v is at %v\n", net.IP(arp.SourceProtAddress), net.HardwareAddr(arp.SourceHwAddress))
-			Endpoint.Stop(101)
+			n += 1
 		}
 	}
+	Endpoint.Stop(101)
 }
 
 func writeARP(handle *pcap.Handle, iface *net.Interface, addr *net.IPNet) error {
