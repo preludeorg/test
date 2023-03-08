@@ -25,9 +25,9 @@ var remove = map[string][]string{
 }
 
 var list = map[string][]string{
-	"windows": {"schtasks.exe", "/query /TN detect-task"},
-	"darwin":  {"crontab", "-l"},
-	"linux":   {"crontab", "-l"},
+	"windows": {"powershell.exe", "-c", "schtasks.exe /query /TN detect-task"},
+	"darwin":  {"bash", "-c", "crontab -l"},
+	"linux":   {"bash", "-c", "crontab -l"},
 }
 
 func isTaskScheduled(output string) bool {
@@ -45,7 +45,10 @@ func isTaskScheduled(output string) bool {
 
 func test() {
 	command := supported[runtime.GOOS]
-	output, _ := Endpoint.Shell(command)
+	output, err := Endpoint.Shell(command)
+	if err != nil {
+		println(err)
+	}
 	if isTaskScheduled(output) {
 		println("[-] Scheduled task was allowed")
 		Endpoint.Stop(101)
@@ -57,11 +60,10 @@ func test() {
 
 func clean() {
 	command := remove[runtime.GOOS]
-	_, _ = Endpoint.Shell(command)
+	Endpoint.Shell(command)
 	Endpoint.Stop(100)
 }
 
 func main() {
-	defer clean()
 	Endpoint.Start(test, clean)
 }
