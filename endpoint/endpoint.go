@@ -16,6 +16,7 @@ var cleanup fn = nil
 
 func Start(test fn, clean fn) {
 	cleanup = clean
+
 	println("[+] Starting cleanup")
 	RunWithTimeout(clean)
 	println("[+] Starting test")
