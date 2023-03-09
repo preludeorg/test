@@ -119,6 +119,7 @@ func NetworkTest(address string, message string) int {
     result := <-done
     return result
 }
+
 func Serve(address string, protocol string) {
 	println("[+] Serving: ", address)
 	listen, err1 := net.Listen(protocol, address)
