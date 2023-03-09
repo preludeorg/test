@@ -7,10 +7,11 @@ package main
 
 import (
 	_ "embed"
-	Endpoint "github.com/preludeorg/test/endpoint"
 	"os"
 	"os/exec"
 	"runtime"
+
+	Endpoint "github.com/preludeorg/test/endpoint"
 )
 
 //go:embed test.py
@@ -68,13 +69,6 @@ func test() {
 	Endpoint.Stop(exitCode)
 }
 
-func clean() {
-	if Endpoint.Remove(scriptPath) {
-		Endpoint.Stop(100)
-	}
-	Endpoint.Stop(103)
-}
-
 func main() {
-	Endpoint.Start(test, clean)
+	Endpoint.Start(test)
 }

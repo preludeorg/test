@@ -78,16 +78,6 @@ func test() {
 	Endpoint.Stop(101)
 }
 
-func clean() {
-	usr, _ := user.Current()
-	arr := [3]string{"one.txt", "two.xlsx", "three.pdf"}
-
-	for _, name := range arr {
-		Endpoint.Remove(filepath.Join(usr.HomeDir, name))
-	}
-	Endpoint.Stop(100)
-}
-
 func main() {
-	Endpoint.Start(test, clean)
+	Endpoint.Start(test)
 }

@@ -95,29 +95,29 @@ func Remove(path string) bool {
 }
 
 func NetworkTest(address string, message string) int {
-    println("[+] Connection opening to", address)
+	println("[+] Connection opening to", address)
 
-    done := make(chan int)
-    go func() {
-        conn, err := net.DialTimeout("tcp", address, 3*time.Second)
-        if err != nil {
-            println("[-] Connection failure:", err.Error())
-            done <- 1
-            return
-        }
-        _, err = conn.Write([]byte(message))
-        if err != nil {
-            println("[-] Write to server failed:", err.Error())
-            done <- 2
-            return
-        }
-        conn.Close()
-        println("[+] Client connection closing")
-        done <- 0
-    }()
+	done := make(chan int)
+	go func() {
+		conn, err := net.DialTimeout("tcp", address, 3*time.Second)
+		if err != nil {
+			println("[-] Connection failure:", err.Error())
+			done <- 1
+			return
+		}
+		_, err = conn.Write([]byte(message))
+		if err != nil {
+			println("[-] Write to server failed:", err.Error())
+			done <- 2
+			return
+		}
+		conn.Close()
+		println("[+] Client connection closing")
+		done <- 0
+	}()
 
-    result := <-done
-    return result
+	result := <-done
+	return result
 }
 
 func Serve(address string, protocol string) {

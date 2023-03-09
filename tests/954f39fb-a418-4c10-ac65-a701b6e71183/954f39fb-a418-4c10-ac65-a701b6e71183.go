@@ -6,8 +6,9 @@ CREATED: 2023-01-03
 package main
 
 import (
-	"github.com/preludeorg/test/endpoint"
 	"time"
+
+	Endpoint "github.com/preludeorg/test/endpoint"
 )
 
 func test() {
@@ -21,10 +22,6 @@ func test() {
 	Endpoint.Stop(100)
 }
 
-func clean() {
-	Endpoint.Stop(100)
-}
-
 func main() {
-	Endpoint.Start(test, clean)
+	Endpoint.Start(test)
 }

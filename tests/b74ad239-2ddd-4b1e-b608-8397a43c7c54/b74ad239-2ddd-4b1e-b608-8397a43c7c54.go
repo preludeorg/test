@@ -7,7 +7,8 @@ package main
 
 import (
 	_ "embed"
-	"github.com/preludeorg/test/endpoint"
+
+	Endpoint "github.com/preludeorg/test/endpoint"
 )
 
 //go:embed malicious.xlsm
@@ -24,14 +25,6 @@ func test() {
 	Endpoint.Stop(101)
 }
 
-func clean() {
-	println("[+] Ensuring malicious file is no longer present")
-	if Endpoint.Remove("malicious.xlsm") {
-		Endpoint.Stop(100)
-	}
-	Endpoint.Stop(105)
-}
-
 func main() {
-	Endpoint.Start(test, clean)
+	Endpoint.Start(test)
 }
