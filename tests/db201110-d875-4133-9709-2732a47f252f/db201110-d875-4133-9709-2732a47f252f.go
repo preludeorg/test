@@ -89,5 +89,5 @@ func clean() {
 }
 
 func main() {
-	Endpoint.Start(test, clean)
+	Endpoint.Start(test)
 }
