@@ -17,12 +17,12 @@ var cleanup fn = func() {}
 func Start(test fn, clean ...fn) {
     if len(clean) > 0 {
         cleanup = clean[0]
-    } else {
-        cleanup = func() {}
     }
 
     println("[+] Starting test")
     RunWithTimeout(test)
+
+    cleanup()
 }
 
 func Stop(code int) {
