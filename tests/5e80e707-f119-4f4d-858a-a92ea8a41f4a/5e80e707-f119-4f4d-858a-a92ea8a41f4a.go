@@ -58,7 +58,6 @@ func test() {
 func clean() {
 	command := remove[runtime.GOOS]
 	Endpoint.Shell(command)
-	Endpoint.Stop(100)
 }
 
 func main() {
