@@ -168,4 +168,3 @@ func IsAvailable(programs ...string) bool {
 	}
 	return false
 }
-
