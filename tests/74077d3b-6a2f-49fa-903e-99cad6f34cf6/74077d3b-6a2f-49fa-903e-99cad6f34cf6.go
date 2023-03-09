@@ -25,14 +25,6 @@ func test() {
 	Endpoint.Stop(101)
 }
 
-func clean() {
-	println("[+] Ensuring malicious file is no longer present")
-	if Endpoint.Remove("oRAT") {
-		Endpoint.Stop(100)
-	}
-	Endpoint.Stop(105)
-}
-
 func main() {
-	Endpoint.Start(test, clean)
+	Endpoint.Start(test)
 }

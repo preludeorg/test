@@ -7,7 +7,8 @@ package main
 
 import (
 	_ "embed"
-	"github.com/preludeorg/test/endpoint"
+
+	Endpoint "github.com/preludeorg/test/endpoint"
 )
 
 //go:embed 09a79e5e20fa4f5aae610c8ce3fe954029a91972b56c6576035ff7e0ec4c1d14.elf
@@ -24,14 +25,6 @@ func test() {
 	Endpoint.Stop(101)
 }
 
-func clean() {
-	println("[+] Ensuring malicious file is no longer present")
-	if Endpoint.Remove("09a79e5e20fa4f5aae610c8ce3fe954029a91972b56c6576035ff7e0ec4c1d14.elf") {
-		Endpoint.Stop(100)
-	}
-	Endpoint.Stop(105)
-}
-
 func main() {
-	Endpoint.Start(test, clean)
+	Endpoint.Start(test)
 }

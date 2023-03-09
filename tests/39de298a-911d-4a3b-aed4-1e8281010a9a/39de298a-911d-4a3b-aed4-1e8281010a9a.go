@@ -5,21 +5,17 @@ CREATED: 2023-01-03
 */
 package main
 
-import "os"
+import (
+	Endpoint "github.com/preludeorg/test/endpoint"
+)
 
 func test() {
-	os.Exit(100)
+	Endpoint.Stop(100)
 }
 
 func clean() {
-	os.Exit(100)
 }
 
 func main() {
-	args := os.Args[1:]
-	if len(args) > 0 {
-		clean()
-	} else {
-		test()
-	}
+	Endpoint.Start(test, clean)
 }
