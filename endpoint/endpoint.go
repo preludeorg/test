@@ -14,11 +14,15 @@ type fn func()
 
 var cleanup fn = func() {}
 
-func Start(test fn, clean fn) {
-	cleanup = clean
+func Start(test fn, clean ...fn) {
+    if len(clean) > 0 {
+        cleanup = clean[0]
+    } else {
+        cleanup = func() {}
+    }
 
-	println("[+] Starting test")
-	RunWithTimeout(test)
+    println("[+] Starting test")
+    RunWithTimeout(test)
 }
 
 func Stop(code int) {
