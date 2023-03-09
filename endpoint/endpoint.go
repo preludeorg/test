@@ -12,28 +12,29 @@ import (
 
 type fn func()
 
-func Start(test fn, clean fn) {
-	args := os.Args[1:]
-	if len(args) > 0 {
-		println("[+] Starting cleanup")
-		RunWithTimeout(clean)
-	} else {
-		println("[+] Starting test")
-		RunWithTimeout(test)
+var cleanup fn = func() {}
+
+func Start(test fn, clean ...fn) {
+	if len(clean) > 0 {
+		cleanup = clean[0]
 	}
-}
 
-func Stop(code int) {
-	println(fmt.Sprintf("[+] Completed with code: %d", code))
-	os.Exit(code)
-}
+	println("[+] Starting test")
 
-func RunWithTimeout(function fn) {
-	go function()
+	go func() {
+		test()
+	}()
+
 	select {
 	case <-time.After(10 * time.Second):
 		os.Exit(102)
 	}
+}
+
+func Stop(code int) {
+	cleanup()
+	println(fmt.Sprintf("[+] Completed with code: %d", code))
+	os.Exit(code)
 }
 
 func Find(ext string) []string {
