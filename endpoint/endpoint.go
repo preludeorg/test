@@ -12,18 +12,20 @@ import (
 
 type fn func()
 
+var cleanup fn = nil
+
 func Start(test fn, clean fn) {
-	args := os.Args[1:]
-	if len(args) > 0 {
-		println("[+] Starting cleanup")
-		RunWithTimeout(clean)
-	} else {
-		println("[+] Starting test")
-		RunWithTimeout(test)
-	}
+	cleanup = clean
+	println("[+] Starting cleanup")
+	RunWithTimeout(clean)
+	println("[+] Starting test")
+	RunWithTimeout(test)
 }
 
 func Stop(code int) {
+	if cleanup != nil {
+		cleanup()
+	}
 	println(fmt.Sprintf("[+] Completed with code: %d", code))
 	os.Exit(code)
 }
