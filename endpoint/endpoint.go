@@ -15,28 +15,26 @@ type fn func()
 var cleanup fn = func() {}
 
 func Start(test fn, clean ...fn) {
-    if len(clean) > 0 {
-        cleanup = clean[0]
-    }
+	if len(clean) > 0 {
+		cleanup = clean[0]
+	}
 
-    println("[+] Starting test")
-    RunWithTimeout(test)
+	println("[+] Starting test")
 
-    cleanup()
+	go func() {
+		test()
+	}()
+
+	select {
+	case <-time.After(10 * time.Second):
+		os.Exit(102)
+	}
 }
 
 func Stop(code int) {
 	cleanup()
 	println(fmt.Sprintf("[+] Completed with code: %d", code))
 	os.Exit(code)
-}
-
-func RunWithTimeout(function fn) {
-	go function()
-	select {
-	case <-time.After(10 * time.Second):
-		os.Exit(102)
-	}
 }
 
 func Find(ext string) []string {
