@@ -85,9 +85,8 @@ func clean() {
 	for _, name := range arr {
 		Endpoint.Remove(filepath.Join(usr.HomeDir, name))
 	}
-	Endpoint.Stop(100)
 }
 
 func main() {
-	Endpoint.Start(test)
+	Endpoint.Start(test, clean)
 }
