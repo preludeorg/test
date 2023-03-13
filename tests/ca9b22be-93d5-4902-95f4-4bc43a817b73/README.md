@@ -1,6 +1,6 @@
 # Will your computer quarantine Colour-Blind malware?
 
-This test drops a defanged Colour-Blind malware python file, a Remote Access Trojan (RAT) that targets sensitive information such as credentials and personal information from the victim's computer. Colour-Blind malware was first discovered by researchers from Kroll in March 2023 and has been seen in the Python Package Index (PyPI) being used to deliver Colour-Blind malware via malicious Python packages. This test will monitor if any endpoint defense quarantines the malware.
+This test drops a defanged Colour-Blind malware python file, a Remote Access Trojan (RAT), that targets sensitive information such as credentials and personal information from the victim's computer. Colour-Blind malware was first discovered by researchers from Kroll in March 2023 and has been seen in the Python Package Index (PyPI) being used to deliver Colour-Blind malware via malicious Python packages. This test will monitor if any endpoint defense quarantines the malware.
 
 Example Output:
 ```
