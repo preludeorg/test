@@ -12,7 +12,7 @@ import (
 )
 
 var supported = map[string][]string{
-	"windows": {"powershell.exe", "sleep 15"},
+	"windows": {"powershell.exe", "-c", "sleep 15"},
 	"darwin":  {"bash", "-c", "sleep 15"},
 	"linux":   {"bash", "-c", "sleep 15"},
 }
